@@ -7,6 +7,7 @@ public class Torpedo : MonoBehaviour
     public float speed = 10f;  // Speed of the torpedo
     private Transform target;  // Target to move towards
 
+    [SerializeField] ParticleSystem Explosion;
     void Start()
     {
         // Find the player's main camera as the target
@@ -29,17 +30,30 @@ public class Torpedo : MonoBehaviour
         }
     }
 
-    // Optional: Handle collision with the camera or other objects
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
+
     {
         // Check if the torpedo collides with the camera or other objects
-        if (collision.gameObject.CompareTag("MainCamera"))
+        if (other.gameObject.CompareTag("MainCamera"))
         {
-            // Implement what happens when the torpedo hits the camera
-            Debug.LogWarning("Torpedo hit the camera!");
-
             // Destroy the torpedo after hitting the camera
             Destroy(gameObject);
+        }else 
+
+        if (other.CompareTag("PlayerProjectile"))
+        {
+            StartCoroutine(Explote());
         }
+
     }
+
+    private IEnumerator Explote()
+    {
+        Debug.LogWarning("uwu");
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        Explosion.Play(); 
+        yield return new WaitForSeconds(Explosion.main.duration);
+        Destroy(gameObject);
+    }
+
 }

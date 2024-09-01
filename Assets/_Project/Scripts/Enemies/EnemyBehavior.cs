@@ -10,11 +10,11 @@ public class EnemyBehavior : MonoBehaviour
     private bool _burned = false;
     private bool _frozen = false;
     private int _healtPoints = 4;
-    private float _torPedoCoolDown = 1f;
+    private float _torPedoCoolDown = 5f;
 
     private Camera _camera;
-    private float _rotationSpeed = 10f;
-    private float _shootAnimationTime = 0.2f;
+    private float _rotationSpeed = 8f;
+    private float _shootAnimationTime = 1.1f;
     private float _distanceFoward = 2f;
     private bool _fowardone = false;
 
@@ -88,16 +88,29 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         float _ogRotationSpeed = _rotationSpeed;
-        while (_healtPoints > 0)
-        {
-            yield return new WaitForSeconds(_torPedoCoolDown);
-            _rotationSpeed = 0;
-            GameObject torpedo = Instantiate(TorpedoPrefab,this.transform.position, Quaternion.identity);
+
+        while (_healtPoints > 0 ) { 
+        
+            // Lerp the _rotationSpeed to 0 over time
+            float elapsedTime = 0f;
+            float duration = 0.5f; // Adjust this value to control the speed of the lerp
+            float initialRotationSpeed = _rotationSpeed;
+
+
+            // nested while to lerp the speed to 0 
+            while (elapsedTime < duration)
+            {
+                _rotationSpeed = Mathf.Lerp(initialRotationSpeed, 0f, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null; // Wait for the next frame
+            }
+            _rotationSpeed = 0f; // Ensure it is exactly 0 after the lerp
+            GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(_shootAnimationTime);
+            // Restore the original rotation speed
             _rotationSpeed = _ogRotationSpeed;
-
+            yield return new WaitForSeconds(_torPedoCoolDown);
         }
-
     }
 
     void LookAtCamera()
