@@ -8,15 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] List<GameObject> ProjectileTypes = new List<GameObject>();
     private int _projectileType = 0;
 
-    public enum ProjectileType
-    {
-        Basic = 0,
-        Fireball = 1,
-        Electroball = 2,
-        Frozen = 3,
-        Regenerating = 4,
-        Invulnerable = 5,
-    }
+
 
     public void ShotProjectile()
     {

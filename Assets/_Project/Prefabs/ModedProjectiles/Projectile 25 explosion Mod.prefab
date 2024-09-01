@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4494156932542222}
   - component: {fileID: 114108851937209514}
+  - component: {fileID: 5155495192904503132}
   - component: {fileID: 108857234956802684}
   - component: {fileID: 54962462914559852}
   - component: {fileID: 135452002061114160}
   - component: {fileID: -6674301985358964868}
   m_Layer: 0
-  m_Name: Projectile 25 orange explosion
-  m_TagString: Untagged
+  m_Name: Projectile 25 explosion Mod
+  m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +64,20 @@ MonoBehaviour:
   - {fileID: 1666296132266488}
   projectilePS: {fileID: 5236327030241782579}
   notDestroy: 0
+--- !u!114 &5155495192904503132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079946990457772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b80f70777bef04eb123dc9c0d12b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Damage: 1
 --- !u!108 &108857234956802684
 Light:
   m_ObjectHideFlags: 0

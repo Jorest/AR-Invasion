@@ -1,31 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-  
+
     private bool _electrocuted = false;
     private bool _burned = false;
     private bool _frozen = false;
     private int _healtPoints = 4;
-
+    private float _torPedoCoolDown = 1f;
 
     private Camera _camera;
-    private float _speed = 0.5f; // Movement speed
-    private float _distanceFoward =2f;
+    private float _rotationSpeed = 10f;
+    private float _shootAnimationTime = 0.2f;
+    private float _distanceFoward = 2f;
     private bool _fowardone = false;
+
     [SerializeField] private float StopDistance = 1f;
     [SerializeField] GameObject DamagedGameObject;
+    [SerializeField] ParticleSystem Explosion;
+    [SerializeField] MeshRenderer MainMesh;
+    [SerializeField] GameObject TorpedoPrefab;
 
-  
+
 
 
     private float yMovementRange = 0.1f;
 
+    #region UnityDefault
+
     void Start()
     {
         StartCoroutine(MoveFoward());
+        StartCoroutine(StartShooting());
+
+    }
+
+    void Update()
+    {
+        if (_fowardone)
+        {
+            RotateAroundTarget(_camera.transform, _rotationSpeed);
+            MoveTowardsPlayer();
+        }
     }
 
     private void OnEnable()
@@ -33,6 +52,7 @@ public class EnemyBehavior : MonoBehaviour
         _camera = Camera.main;
     }
 
+    #endregion
     private IEnumerator MoveFoward()
     {
         yield return new WaitForSeconds(0.3f);
@@ -60,7 +80,24 @@ public class EnemyBehavior : MonoBehaviour
             yield return null;
         }
         _fowardone = true;
-       // transform.position = new Vector3(0,0,0);
+        // transform.position = new Vector3(0,0,0);
+    }
+        
+    private IEnumerator StartShooting()
+    {
+        yield return new WaitForSeconds(1f);
+
+        float _ogRotationSpeed = _rotationSpeed;
+        while (_healtPoints > 0)
+        {
+            yield return new WaitForSeconds(_torPedoCoolDown);
+            _rotationSpeed = 0;
+            GameObject torpedo = Instantiate(TorpedoPrefab,this.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(_shootAnimationTime);
+            _rotationSpeed = _ogRotationSpeed;
+
+        }
+
     }
 
     void LookAtCamera()
@@ -69,22 +106,13 @@ public class EnemyBehavior : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rotation, 0.01f);
     }
-
-
-    void Update()
-    {
-        if (_fowardone)
-        {
-            RotateAroundTarget(_camera.transform, 10);
-            MoveTowardsPlayer();
-        }
-    }
-
     void RotateAroundTarget(Transform target, float speed)
     {
-        // Rotate the enemy around the target (player) on the Y axis
-        transform.RotateAround(target.position, Vector3.up, speed * Time.deltaTime);
-        LookAtCamera();
+        if (_healtPoints > 0) 
+        {
+            transform.RotateAround(target.position, Vector3.up, speed * Time.deltaTime);
+            LookAtCamera();
+        }
     }
 
     void MoveTowardsPlayer()
@@ -102,9 +130,61 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning("heyooo");
-        StartCoroutine(DamageBlink());
+        if (other.CompareTag("PlayerProjectile")){
+            StartCoroutine(DamageBlink());
+            Hited(other.gameObject.GetComponent<Projectile>());
+        }
+
+        
+
+
     }
+
+    private void Hited(Projectile projectile)
+    {
+        _healtPoints -= projectile.Damage;
+        if (_healtPoints <= 0)
+        {
+            StartCoroutine( Explote());
+        }else
+        {
+            switch (projectile.Type)
+            {
+                case ProjectileType.Fireball:
+                    _frozen = false;
+                    _burned = true;
+                    break;
+                case ProjectileType.Electro:
+                    _electrocuted = true; 
+                    break;
+                case ProjectileType.Freeze:
+                    _frozen = true;
+                    _burned = false;
+                    break;
+
+                default:
+                    break;
+
+            }
+            UpdateVisuals();
+        }
+    }
+
+    private void UpdateVisuals()
+    {
+            
+    }
+
+    private IEnumerator Explote()
+    {
+        DamageBlink();
+        yield return new WaitForSeconds(0.2f);
+        MainMesh.enabled = false;
+        Explosion.Play();
+        yield return new WaitForSeconds(2f);
+        Destroy(this.gameObject);
+    }
+
     private IEnumerator DamageBlink()
     {
         DamagedGameObject.SetActive(true);

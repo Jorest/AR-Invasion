@@ -3,7 +3,12 @@ guid: 3638fb3b8a5714143a0edca81de28558
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - DamagedGameObject: {instanceID: 0}
+  - Explosion: {instanceID: 0}
+  - MainMesh: {instanceID: 0}
+  - TorpedoPrefab: {fileID: 1314043251266546, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

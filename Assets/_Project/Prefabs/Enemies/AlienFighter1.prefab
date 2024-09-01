@@ -100,9 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3638fb3b8a5714143a0edca81de28558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 1
+  StopDistance: 1
   DamagedGameObject: {fileID: 4365181836631241930}
-  healtPoints: 4
+  Explosion: {fileID: 2432652737901834696}
+  MainMesh: {fileID: 23844358526652866}
+  TorpedoPrefab: {fileID: 1314043251266546, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
+    type: 3}
 --- !u!54 &1216477390346754013
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,6 +350,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a684e320da6e7439421a07e3fa265c, type: 3}
+--- !u!198 &2432652737901834696 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198357973136645638, guid: 67a684e320da6e7439421a07e3fa265c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2522632893564989390}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2527090593188594188 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4563802948693442, guid: 67a684e320da6e7439421a07e3fa265c,
