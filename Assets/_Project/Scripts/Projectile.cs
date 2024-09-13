@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private int _Damage=1;
 
+    private bool pierce = false;
     public int Damage { get => _Damage; set => _Damage = value; }
     public ProjectileType Type { get => _Type; set => _Type = value; }
 }

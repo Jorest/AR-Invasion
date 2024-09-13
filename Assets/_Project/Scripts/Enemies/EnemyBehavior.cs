@@ -148,9 +148,6 @@ public class EnemyBehavior : MonoBehaviour
             Hited(other.gameObject.GetComponent<Projectile>());
         }
 
-        
-
-
     }
 
     private void Hited(Projectile projectile)

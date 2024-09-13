@@ -87,16 +87,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartWave()
     {
 
-
         yield return new WaitForSeconds(1f);
-
-
 
         EnemySpanwer.SpawnAlien(_lastPortal.transform);
         ShootButton.onClick.AddListener(Shoot);
         ShootButton.gameObject.SetActive(true);
-
-
 
     }
 
