@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerProjectile
   - Torpedo
+  - Enemy
   layers:
   - Default
   - TransparentFX

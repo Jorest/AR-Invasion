@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        EnemySpanwer.SpawnAlien(_lastPortal.transform);
+        EnemySpanwer.SpawnAliens(_lastPortal.transform);
         ShootButton.onClick.AddListener(Shoot);
         ShootButton.gameObject.SetActive(true);
 

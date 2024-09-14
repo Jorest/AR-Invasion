@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3538490007084604676}
   m_Layer: 0
   m_Name: AlienFighter1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3638fb3b8a5714143a0edca81de28558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeTargetTime: 3
   StopDistance: 1
   DamagedGameObject: {fileID: 8073053036842340668}
   Explosion: {fileID: 5854781722182105711}
