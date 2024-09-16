@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     void Shoot()
     {
-        Player.ShotProjectile();
+        Player.TryShooting();
 
     }
 

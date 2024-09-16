@@ -1,12 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CollisionAndTriggerEvents : MonoBehaviour
+public class TriggerColOnPlayer : MonoBehaviour
 {
-    // UnityEvents without parameters (can be used in the Inspector)
-    public UnityEvent onCollisionEnterEvent;
-    public UnityEvent onTriggerEnterEvent;
-
     private Player _player;
 
     private void Start()
@@ -18,9 +14,11 @@ public class CollisionAndTriggerEvents : MonoBehaviour
     // Called when a collision happens
     private void OnTriggerEnter(Collider col)
     {
-        
+        Debug.LogWarning("``1111");
+
         if (col.tag.Equals("Torpedo"))
         {
+            Debug.LogWarning("DWDWFEWQGFRGF");
             int damage = col.GetComponent<Torpedo>().Damage;
             Destroy(col.gameObject);
             _player.TakeDamage(damage);

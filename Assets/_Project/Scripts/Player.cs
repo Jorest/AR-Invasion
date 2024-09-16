@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI; // Required when Using UI elements.
 
 public class Player : MonoBehaviour
 {
 
     [SerializeField] List<GameObject> ProjectileTypes = new List<GameObject>();
 
-    [Header("Life UI")]
 
-    [SerializeField] Image LifeBar;
     private int _health = 10;
-    
+    private int _healthTotal = 10;
+    private float _cooldown = 1f;
+    private bool _canShoot = true;
     private int _projectileType = 0;
+
+
+    [Header("HUD elements")]
+    [SerializeField] Image LifeBar;
+    [SerializeField] Image CoolDownCircle;
 
     public static Player Instance { get; private set; }
 
@@ -30,10 +35,10 @@ public class Player : MonoBehaviour
             Instance = this;
         }
     }
-    public void ShotProjectile()
+    public void TryShooting()
     {
-        GameObject bullet = Instantiate(ProjectileTypes[_projectileType],transform.position,transform.rotation);
- 
+
+        StartCoroutine(Shoot());
         
         /*
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
@@ -45,9 +50,40 @@ public class Player : MonoBehaviour
 
     }
 
+
+
+
+    private IEnumerator Shoot()
+    {
+        if (_canShoot)
+        {
+            _canShoot = false;
+            GameObject bullet = Instantiate(ProjectileTypes[_projectileType], transform.position, transform.rotation);
+            float elapsedTime = 0f;
+            while (elapsedTime < _cooldown)
+            {
+                elapsedTime += Time.deltaTime;
+
+                // Update the cooldown image fill (0 means no fill, 1 means full fill)
+                CoolDownCircle.fillAmount =  (elapsedTime / _cooldown);
+
+                yield return null;  // Wait for the next frame
+            }
+
+
+            _canShoot = true;
+
+        }
+        yield return null;
+
+    }
+
+
     public void TakeDamage(int damage)
     {
-        
+        _health -= damage;
+        LifeBar.fillAmount = (_health / _healthTotal);
+
     }
 
     public void HandleTrigger(Collider other)

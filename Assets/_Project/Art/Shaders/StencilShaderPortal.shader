@@ -26,6 +26,7 @@ Shader "Custom/StencilShaderPortal"
                 Comp Always
                 Pass Replace
                 Fail Keep
+                ZFail Keep
 
             }
 
