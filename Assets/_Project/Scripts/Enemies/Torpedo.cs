@@ -8,7 +8,7 @@ public class Torpedo : MonoBehaviour
     private Transform target;  // Target to move towards
     private Vector3 direction;
 
-    private int _damage = 1;
+    private int _damage = 5;
 
     [SerializeField] ParticleSystem Explosion;
 

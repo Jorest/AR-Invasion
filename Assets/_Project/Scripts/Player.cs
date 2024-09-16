@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private bool _canShoot = true;
     private int _projectileType = 0;
 
+    private GameManager _gameManager;
 
     [Header("HUD elements")]
     [SerializeField] Image LifeBar;
@@ -34,6 +35,11 @@ public class Player : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
     }
     public void TryShooting()
     {
@@ -81,8 +87,18 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        LifeBar.fillAmount = (_health / _healthTotal);
+        if (_health > 0)
+        {
+            Debug.LogWarning(damage);
+            _health -= damage;
+            LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
+            Debug.LogWarning(LifeBar.fillAmount);
+        }
+        if (_health <= 0) {
+
+            _gameManager.GameOver();
+
+        }
 
     }
 

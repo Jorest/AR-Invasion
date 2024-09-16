@@ -1,23 +1,39 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
 
     private bool _enablePortalSpawn = true;
 
+    [Header("Setting AR")]
+
     [SerializeField] private Button StartButton;
     [SerializeField] private GameObject DeleteButton;
+    [SerializeField] private ARSession ArSesh;
+
+
+
+    [Header("Managers/Controllers")]
     [SerializeField] private EnemySpawner EnemySpanwer;
-    [SerializeField] private Canvas HUD;
     [SerializeField] private Player Player;
     [SerializeField] private ARPlaneManager PlaneManager;
 
+    [Header("UI")]
 
+    [SerializeField] private Canvas HUD;
     [SerializeField] private Button ShootButton;
+    [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private TextMeshProUGUI WaveText;
+
+
+
+
 
 
     public static GameManager Instance { get; private set; }
@@ -84,6 +100,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void GameOver()
+    {
+        GameOverScreen.SetActive(true);
+        WaveText.text = ("Wave Number: " + EnemySpanwer.WaveNumber);
+    }
     private IEnumerator StartWave()
     {
 
@@ -120,6 +141,35 @@ public class GameManager : MonoBehaviour
             plane.gameObject.SetActive(false);
         }
         
+    }
+
+    public void RestartGame()
+    {
+
+        StartCoroutine(ResetARSession());
+
+       
+
+    }
+
+    private IEnumerator<WaitForSeconds> ResetARSession()
+    {
+        PlaneManager.enabled = true;
+
+        // Disable the AR session
+        ArSesh.Reset();
+
+        // Wait for one frame to let the session reset
+        yield return new WaitForSeconds(0.1f);
+
+        // Get the currently active scene
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentScene.name);
+
+        // Optionally, restart the AR session if needed
+        // You can re-enable AR features here
     }
 
 

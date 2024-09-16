@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
     private int waveNumber = 1;
     private float spawnSpeed = 3;
 
+    public int WaveNumber { get => waveNumber; set => waveNumber = value; }
+
     public void SpawnAliens(Transform portalTranform)
     {
 
