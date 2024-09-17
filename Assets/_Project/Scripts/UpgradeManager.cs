@@ -1,10 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
+using TMPro;
 
 public class UpgradeManager : MonoBehaviour
 {
     public List<Upgrade> availableUpgrades;  // Populate this in the Inspector with all possible upgrades
     public int numberOfOptions = 3;  // How many options to present to the player
+
+    [Header("UI selection")]
+    [SerializeField] List<TextMeshProUGUI> Fields;
+
+
+    private void Start()
+    {
+        EndLevel();
+    }
 
     void EndLevel()
     {
@@ -14,7 +25,7 @@ public class UpgradeManager : MonoBehaviour
         // Present them to the player (this would depend on your UI system)
         foreach (var upgrade in selectedUpgrades)
         {
-            Debug.Log("Option: " + upgrade.upgradeName);
+            Debug.Log("Option: " + upgrade.UpgradeName);
         }
     }
 
@@ -30,7 +41,12 @@ public class UpgradeManager : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, shuffledUpgrades.Count);
                 randomUpgrades.Add(shuffledUpgrades[randomIndex]);
+                Fields[i].text = shuffledUpgrades[randomIndex].Description;
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
+                if (!availableUpgrades[randomIndex].infinite)
+                {
+                    availableUpgrades.RemoveAt(randomIndex);
+                }
             }
         }
 
