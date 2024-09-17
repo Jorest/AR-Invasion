@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     [Header("HUD elements")]
     [SerializeField] Image LifeBar;
     [SerializeField] Image CoolDownCircle;
+    [Header("Other")]
+    [SerializeField] Transform ProjectilePos;
 
     public static Player Instance { get; private set; }
 
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
         if (_canShoot)
         {
             _canShoot = false;
-            GameObject bullet = Instantiate(ProjectileTypes[_projectileType], transform.position, transform.rotation);
+            GameObject bullet = Instantiate(ProjectileTypes[_projectileType], ProjectilePos.position, ProjectilePos.rotation);
             float elapsedTime = 0f;
             while (elapsedTime < _cooldown)
             {

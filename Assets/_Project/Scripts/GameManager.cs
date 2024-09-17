@@ -143,9 +143,25 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void EnablePlaneRegonition()
+    {
+
+        // Disable plane detection
+        PlaneManager.enabled = true;
+
+        // Optionally, disable existing planes
+        foreach (var plane in PlaneManager.trackables)
+        {
+            plane.gameObject.SetActive(true);
+        }
+
+    }
+
+
     public void RestartGame()
     {
 
+        EnablePlaneRegonition();
         StartCoroutine(ResetARSession());
 
        
