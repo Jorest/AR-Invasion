@@ -15,4 +15,7 @@ MonoBehaviour:
   UpgradeName: Fire
   Description: fire fire
   infinite: 0
-  Type: 0
+  Type: 1
+  FrameColor: {r: 1, g: 0.32051128, b: 0, a: 0.9019608}
+  VisualElement: {fileID: 4128378557812326318, guid: e75b7052bac33c74d9b74af0fba59cc0,
+    type: 3}

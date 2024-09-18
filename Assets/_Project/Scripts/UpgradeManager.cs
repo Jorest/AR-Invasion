@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -10,6 +10,10 @@ public class UpgradeManager : MonoBehaviour
 
     [Header("UI selection")]
     [SerializeField] List<TextMeshProUGUI> Fields;
+    [SerializeField] List<UnityEngine.UI.Image> FrameImages;
+    [SerializeField] List<Transform> TransformsIcon;
+
+
 
 
     private void Start()
@@ -41,7 +45,10 @@ public class UpgradeManager : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, shuffledUpgrades.Count);
                 randomUpgrades.Add(shuffledUpgrades[randomIndex]);
+                //set all the visuals and text for the respective upgrade   
                 Fields[i].text = shuffledUpgrades[randomIndex].Description;
+                FrameImages[i].color = shuffledUpgrades[randomIndex].FrameColor;
+                Instantiate(shuffledUpgrades[randomIndex].VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
                 if (!availableUpgrades[randomIndex].infinite)
                 {
@@ -52,4 +59,10 @@ public class UpgradeManager : MonoBehaviour
 
         return randomUpgrades;
     }
+
+    private void SelectUpgrade(Upgrade upgrade)
+    {
+
+    }
+
 }

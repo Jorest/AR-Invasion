@@ -8,7 +8,8 @@ public class Upgrade : ScriptableObject
     public string Description;
     public bool infinite = true;
     public ProjectileType Type;
-
+    public Color FrameColor = Color.white;
+    public GameObject VisualElement;
 
 
     // You can add more fields as needed
