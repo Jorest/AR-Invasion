@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   UpgradeName: Heal
-  Description: Healiiees
+  Description: 'Heal: Restore 15 health instantly, helping you recover from damage
+    and stay in the fight longer.'
   infinite: 1
   Type: 0
   FrameColor: {r: 0.42830187, g: 1, b: 0.5457629, a: 0.9019608}

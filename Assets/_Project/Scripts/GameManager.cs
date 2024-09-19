@@ -20,9 +20,10 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Managers/Controllers")]
-    [SerializeField] private EnemySpawner EnemySpanwer;
-    [SerializeField] private Player Player;
+    [SerializeField] private EnemySpawner EnemyManager;
+    [SerializeField] private Player PlayerManager;
     [SerializeField] private ARPlaneManager PlaneManager;
+    [SerializeField] private UpgradeManager UpgradesManager;
 
     [Header("UI")]
 
@@ -77,6 +78,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void WaveEnded(int waveNum)
+    {
+        UpgradesManager.ShowUpgrades(_lastPortal.transform);
+    }
+
     private void StartGame()
     {
         Destroy(DeleteButton.gameObject);
@@ -103,14 +109,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameOverScreen.SetActive(true);
-        WaveText.text = ("Wave Number: " + EnemySpanwer.WaveNumber);
+        WaveText.text = ("Wave Number: " + EnemyManager.WaveNumber);
     }
     private IEnumerator StartWave()
     {
 
         yield return new WaitForSeconds(1f);
 
-        EnemySpanwer.SpawnAliens(_lastPortal.transform);
+        EnemyManager.StartGame(_lastPortal.transform);
         ShootButton.onClick.AddListener(Shoot);
         ShootButton.gameObject.SetActive(true);
 
@@ -125,7 +131,7 @@ public class GameManager : MonoBehaviour
 
     void Shoot()
     {
-        Player.TryShooting();
+        PlayerManager.TryShooting();
 
     }
 

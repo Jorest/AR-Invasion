@@ -9,6 +9,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool _electrocuted = false;
     private bool _burned = false;
     private bool _frozen = false;
+    private EnemySpawner _enemySpawner;
 
     private int _healtPoints = 4;
     private float _torPedoCoolDown = 5f;
@@ -40,6 +41,8 @@ public class EnemyBehavior : MonoBehaviour
 
     void Start()
     {
+        _enemySpawner = EnemySpawner.Instance;
+
         //move outside of the portal
         StartCoroutine(MoveFoward());
         //start shooting torpedos;
@@ -211,7 +214,7 @@ public class EnemyBehavior : MonoBehaviour
         _healtPoints -= projectile.Damage;
         if (_healtPoints <= 0)
         {
-            StartCoroutine( Explote());
+            Die();
         }else
         {
             switch (projectile.Type)
@@ -234,6 +237,13 @@ public class EnemyBehavior : MonoBehaviour
             }
             UpdateVisuals();
         }
+    }
+
+
+    private void Die()
+    {
+        _enemySpawner.ReportEnemyDeath();
+        StartCoroutine(Explote());
     }
 
     #region Visual Methods

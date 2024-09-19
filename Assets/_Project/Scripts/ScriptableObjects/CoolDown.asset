@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CoolDown
   m_EditorClassIdentifier: 
   UpgradeName: Cooldown
-  Description: COOOOL
+  Description: 'Cooldown Reduction: reduces the cooldown time of your projectile
+    ability by 50%, allowing you to fire shots twice as often.'
   infinite: 1
   Type: 0
   FrameColor: {r: 0.40392163, g: 0.99215686, b: 0.9600567, a: 0.9019608}

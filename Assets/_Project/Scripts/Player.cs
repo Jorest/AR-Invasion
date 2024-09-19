@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements.
+using TMPro;
+
 
 public class Player : MonoBehaviour
 {
@@ -9,9 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] List<GameObject> ProjectileTypes = new List<GameObject>();
 
 
-    private int _health = 10;
-    private int _healthTotal = 10;
-    private float _cooldown = 1f;
+    private int _health = 25;
+    private int _healthTotal = 25;
+    private float _cooldown = 0.2f;
     private bool _canShoot = true;
     private int _projectileType = 0;
 
@@ -20,6 +22,8 @@ public class Player : MonoBehaviour
     [Header("HUD elements")]
     [SerializeField] Image LifeBar;
     [SerializeField] Image CoolDownCircle;
+    [SerializeField] TextMeshProUGUI TextLifeNumber;
+
     [Header("Other")]
     [SerializeField] Transform ProjectilePos;
 
@@ -94,14 +98,23 @@ public class Player : MonoBehaviour
             Debug.LogWarning(damage);
             _health -= damage;
             LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
-            Debug.LogWarning(LifeBar.fillAmount);
+            TextLifeNumber.text = (_healthTotal + "/" + _health);
         }
-        if (_health <= 0) {
+        if (_health == 0) {
 
             _gameManager.GameOver();
 
         }
 
+    }
+
+    public void Heal(int heal)
+    {
+        _health += heal;
+        if (_health > _healthTotal)
+            _health = _healthTotal;
+        LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
+        TextLifeNumber.text = (_healthTotal + "/" + _health);
     }
 
     public void HandleTrigger(Collider other)

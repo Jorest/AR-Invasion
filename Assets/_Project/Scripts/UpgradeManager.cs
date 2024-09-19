@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UpgradeManager : MonoBehaviour
     public int numberOfOptions = 3;  // How many options to present to the player
 
     [Header("UI selection")]
+    [SerializeField] GameObject UPgradeUI;
     [SerializeField] List<TextMeshProUGUI> Fields;
     [SerializeField] List<UnityEngine.UI.Image> FrameImages;
     [SerializeField] List<Transform> TransformsIcon;
@@ -16,13 +18,17 @@ public class UpgradeManager : MonoBehaviour
 
 
 
-    private void Start()
+    public void ShowUpgrades(Transform portalTransform)
     {
-        EndLevel();
+        UPgradeUI.SetActive(true);
+
+        StartCoroutine(UpgradeSet());
     }
 
-    void EndLevel()
+    private IEnumerator UpgradeSet()
     {
+        yield return new WaitForSeconds(1f);
+
         // Randomly select a set of upgrades to present to the player
         List<Upgrade> selectedUpgrades = GetRandomUpgrades();
 
@@ -48,7 +54,7 @@ public class UpgradeManager : MonoBehaviour
                 //set all the visuals and text for the respective upgrade   
                 Fields[i].text = shuffledUpgrades[randomIndex].Description;
                 FrameImages[i].color = shuffledUpgrades[randomIndex].FrameColor;
-                Instantiate(shuffledUpgrades[randomIndex].VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation);
+                Instantiate(shuffledUpgrades[randomIndex].VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
                 if (!availableUpgrades[randomIndex].infinite)
                 {
@@ -60,9 +66,6 @@ public class UpgradeManager : MonoBehaviour
         return randomUpgrades;
     }
 
-    private void SelectUpgrade(Upgrade upgrade)
-    {
 
-    }
 
 }
