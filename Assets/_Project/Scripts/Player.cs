@@ -13,13 +13,14 @@ public class Player : MonoBehaviour
 
     private int _health = 25;
     private int _healthTotal = 25;
-    private float _cooldown = 0.2f;
+    private float _cooldown = 0.01f;
     private bool _canShoot = true;
     private int _projectileType = 0;
 
     private GameManager _gameManager;
 
     [Header("HUD elements")]
+    [SerializeField] Button ShootButton;
     [SerializeField] Image LifeBar;
     [SerializeField] Image CoolDownCircle;
     [SerializeField] TextMeshProUGUI TextLifeNumber;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
+        ShootButton.onClick.AddListener(TryShooting);
     }
     public void TryShooting()
     {
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
         {
             _canShoot = false;
             GameObject bullet = Instantiate(ProjectileTypes[_projectileType], ProjectilePos.position, ProjectilePos.rotation);
+            bullet.GetComponent<Projectile>().Damage = 1;
             float elapsedTime = 0f;
             while (elapsedTime < _cooldown)
             {
@@ -95,7 +98,6 @@ public class Player : MonoBehaviour
     {
         if (_health > 0)
         {
-            Debug.LogWarning(damage);
             _health -= damage;
             LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
             TextLifeNumber.text = (_healthTotal + "/" + _health);

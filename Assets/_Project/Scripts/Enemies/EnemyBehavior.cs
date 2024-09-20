@@ -9,6 +9,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool _electrocuted = false;
     private bool _burned = false;
     private bool _frozen = false;
+    private bool alive = true;
     private EnemySpawner _enemySpawner;
 
     private int _healtPoints = 4;
@@ -242,7 +243,10 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Die()
     {
-        _enemySpawner.ReportEnemyDeath();
+        if (alive == true) 
+            _enemySpawner.ReportEnemyDeath();
+        alive = false;
+        gameObject.GetComponent<Collider>().enabled = false;
         StartCoroutine(Explote());
     }
 

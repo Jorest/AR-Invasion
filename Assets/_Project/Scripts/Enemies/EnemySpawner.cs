@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     private int _waveNumber = 1;
-    private int _packAmount = 3;
+    private int _packAmount = 1;
     private float spawnDelay = 5;
     private int _enemyCount = 0;
     private Transform _portalTransform = null;

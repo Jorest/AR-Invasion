@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a9002d49d29d884baffea8fba66f4f2, type: 3}
-  m_Name: Heal
+  m_Name: Health
   m_EditorClassIdentifier: 
-  UpgradeName: Heal
-  Description: 'Heal: Restore 10 health instantly, helping you recover from damage
-    and stay in the fight longer.'
+  UpgradeName: Health
+  Description: 'Health Crystal: Increases the maximum health by 15'
   infinite: 1
   Type: 0
-  FrameColor: {r: 0.42830187, g: 1, b: 0.5457629, a: 0.9019608}
-  VisualElement: {fileID: 460712927330063988, guid: 28cca914fd99f804db64e2c134be1e9d,
+  FrameColor: {r: 1, g: 1, b: 1, a: 1}
+  VisualElement: {fileID: 1168966368610031635, guid: 683b7cf63c377454a93b8cbbd0e4378b,
     type: 3}

@@ -15,7 +15,7 @@ MonoBehaviour:
   UpgradeName: Fire
   Description: 'FIre Ball:  transforms your standard projectile into a fire-infused
     shot. Upon impact, the fire projectile ignites the target, dealing damage over
-    time in addition to the initial hit.'
+    time.'
   infinite: 0
   Type: 1
   FrameColor: {r: 1, g: 0.32051128, b: 0, a: 0.9019608}

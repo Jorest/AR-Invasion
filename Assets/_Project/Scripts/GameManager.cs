@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
 
     [SerializeField] private Canvas HUD;
-    [SerializeField] private Button ShootButton;
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private TextMeshProUGUI WaveText;
 
@@ -42,15 +41,9 @@ public class GameManager : MonoBehaviour
 
     private Portal _lastPortal = null; 
     
-    public void SetPortalEnable(bool enable)
-    {
-        _enablePortalSpawn = enable;  
-        StartButton.gameObject.SetActive(! _enablePortalSpawn);
-    }
-    
-    
+ 
 
-
+    #region Unity Default
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -77,9 +70,12 @@ public class GameManager : MonoBehaviour
         StartButton.onClick.RemoveListener(StartGame);
 
     }
+    #endregion
+
 
     public void WaveEnded(int waveNum)
     {
+        HUD.enabled = false;
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
@@ -117,11 +113,15 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         EnemyManager.StartGame(_lastPortal.transform);
-        ShootButton.onClick.AddListener(Shoot);
-        ShootButton.gameObject.SetActive(true);
 
     }
 
+    #region Portal related
+    public void SetPortalEnable(bool enable)
+    {
+        _enablePortalSpawn = enable;
+        StartButton.gameObject.SetActive(!_enablePortalSpawn);
+    }
 
     public void UpdatePortal(Portal portal)
     {
@@ -129,11 +129,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Shoot()
-    {
-        PlayerManager.TryShooting();
+    #endregion
 
-    }
+ 
 
     void DissablePlaneRegonition()
     {
@@ -193,6 +191,19 @@ public class GameManager : MonoBehaviour
         // Optionally, restart the AR session if needed
         // You can re-enable AR features here
     }
+
+
+
+
+    #region UpgradeButtonMethods
+    public void Heal() { Debug.LogWarning("1"); }
+    public void Fire() { Debug.LogWarning("2"); }
+    public void Ice() { Debug.LogWarning("3"); }
+    public void CoolDown() { Debug.LogWarning("4"); }
+    public void Damage() { Debug.LogWarning("5"); }
+    public void Health() { Debug.LogWarning("6"); }
+    public void Electric() { Debug.LogWarning("7"); }
+    #endregion
 
 
 }
