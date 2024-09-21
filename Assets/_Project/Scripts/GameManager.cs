@@ -79,6 +79,13 @@ public class GameManager : MonoBehaviour
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
+    public void StartNextWave(int waveNum)
+    {
+        HUD.enabled = true;
+        StartCoroutine(StartWave());
+
+    }
+
     private void StartGame()
     {
         Destroy(DeleteButton.gameObject);

@@ -16,13 +16,14 @@ public class UpgradeManager : MonoBehaviour
 
     [Header("UI selection")]
     [SerializeField] GameObject UPgradeUI;
+
     [SerializeField] List<TextMeshProUGUI> Fields;
     [SerializeField] List<UnityEngine.UI.Image> FrameImages;
     [SerializeField] List<Transform> TransformsIcon;
+    [SerializeField] List<Transform> TransformsUpgradeUI;
     [SerializeField] List<Button> ConfimButtons;
 
-
-
+    
 
     public void ShowUpgrades(Transform portalTransform)
     {
@@ -64,7 +65,7 @@ public class UpgradeManager : MonoBehaviour
                 Fields[i].text = up.Description;
                 FrameImages[i].color = up.FrameColor;
                 Instantiate(up.VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
-                AssingUpgradeMethod(up.name, ConfimButtons[i]);
+               // AssingUpgradeMethod(up.name, ConfimButtons[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
                 if (!availableUpgrades[randomIndex].infinite)
                 {
@@ -101,7 +102,19 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
         }
+
+
     }
+
+    public void UpdateUIClose()
+    {
+        for (int i = 0; i < TransformsUpgradeUI.Count; i++)
+        {
+            TransformsUpgradeUI[i].gameObject.SetActive(false);
+        }
+    }
+
+
 
     //from chat gpt 
     void RemoveLastButtonListener(Button button)

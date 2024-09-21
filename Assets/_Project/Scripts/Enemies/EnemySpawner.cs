@@ -35,14 +35,18 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartGame(Transform portalTransform)
     {
-        _portalTransform = portalTransform;
+        if (_portalTransform == null)
+            _portalTransform = portalTransform;
 
        // _portalTransform.position = portalTransform.position;
        // _portalTransform.rotation = portalTransform.rotation;
 
-        StartCoroutine(StarWave(1));
-
+        StartCoroutine(StarWave(_waveNumber));
+        _waveNumber++;
     }
+
+ 
+
 
 
     private IEnumerator StarWave(int waveNumber)
