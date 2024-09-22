@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
     public void Damage() { Debug.LogWarning("5"); }
     public void Health() { Debug.LogWarning("6"); }
     public void Electric() { Debug.LogWarning("7"); }
+    public void Cooldown() { Debug.LogWarning("8"); }
     #endregion
 
 

@@ -51,7 +51,6 @@ public class UpgradeManager : MonoBehaviour
     List<Upgrade> GetRandomUpgrades()
     {
         List<Upgrade> randomUpgrades = new List<Upgrade>();
-        upgraded = true;
         // Shuffle and pick the desired number of random upgrades
         List<Upgrade> shuffledUpgrades = new List<Upgrade>(availableUpgrades);
         for (int i = 0; i < numberOfOptions; i++)
@@ -65,7 +64,7 @@ public class UpgradeManager : MonoBehaviour
                 Fields[i].text = up.Description;
                 FrameImages[i].color = up.FrameColor;
                 Instantiate(up.VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
-               // AssingUpgradeMethod(up.name, ConfimButtons[i]);
+                AssingUpgradeMethod(up.name, ConfimButtons[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
                 if (!availableUpgrades[randomIndex].infinite)
                 {
@@ -73,13 +72,18 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
         }
-
+        upgraded = true;
         return randomUpgrades;
     }
 
     private void AssingUpgradeMethod(string name, Button button)
     {
-       
+
+        if (upgraded)
+        {
+            RemoveLastButtonListener(button);
+        }
+
         switch (name)
         {
             case "Heal":
@@ -97,15 +101,15 @@ public class UpgradeManager : MonoBehaviour
             case "Health":
                 button.onClick.AddListener(gameManager.Health);
                 break;
+            case "Cooldown":
+                button.onClick.AddListener(gameManager.Cooldown);
+                break;
             case "Electric":
                 button.onClick.AddListener(gameManager.Electric);
                 break;
-
         }
-
-
     }
-
+    //referenced by Editor
     public void UpdateUIClose()
     {
         for (int i = 0; i < TransformsUpgradeUI.Count; i++)
