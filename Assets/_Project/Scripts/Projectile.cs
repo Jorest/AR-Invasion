@@ -6,10 +6,10 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private ProjectileType _Type;
 
-    [SerializeField] private int _Damage=1;
+    private int _damage=1;
 
     private bool pierce = false;
-    public int Damage { get => _Damage; set => _Damage = value; }
+    public int Damage { get => _damage; set => _damage = value; }
     public ProjectileType Type { get => _Type; set => _Type = value; }
 }
 public enum ProjectileType

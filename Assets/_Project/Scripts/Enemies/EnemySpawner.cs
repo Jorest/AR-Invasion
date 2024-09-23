@@ -13,11 +13,12 @@ public class EnemySpawner : MonoBehaviour
     private float spawnDelay = 5;
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
+    private List<GameObject> _projectiles = new List<GameObject>();
     [SerializeField] GameManager GameManager;
     public static EnemySpawner Instance { get; private set; }
 
     public int WaveNumber { get => _waveNumber; set => _waveNumber = value; }
-
+    public List<GameObject> Projectiles { get => _projectiles; set => _projectiles = value; }
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void StartGame(Transform portalTransform)
+    public void StartFirstWave(Transform portalTransform)
     {
         if (_portalTransform == null)
             _portalTransform = portalTransform;
@@ -41,15 +42,29 @@ public class EnemySpawner : MonoBehaviour
        // _portalTransform.position = portalTransform.position;
        // _portalTransform.rotation = portalTransform.rotation;
 
-        StartCoroutine(StarWave(_waveNumber));
+        StartCoroutine(IEStarWave(_waveNumber));
         _waveNumber++;
     }
+    public void StartWave()
+    {
+        if (_portalTransform == null)
+            Debug.LogError("no posiiton for spawning");
+        
+        if (_waveNumber ==(4|7|10) )
+        {
+            //Star boss
+            _waveNumber++;
 
- 
+        }
+        else
+        {
+            StartCoroutine(IEStarWave(_waveNumber));
+            _waveNumber++;
+        }
+      
+    }
 
-
-
-    private IEnumerator StarWave(int waveNumber)
+    private IEnumerator IEStarWave(int waveNumber)
     {
         _enemyCount = waveNumber * _packAmount;
         for (int i = 0; i < waveNumber; i++)
@@ -58,6 +73,15 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    public void KillProjectiles()
+    {
+        foreach (GameObject projectile in _projectiles)
+        {
+            Destroy(projectile);
+        }
+    }
+
+
 
     public void SpawnRandomEnemies()
     {
@@ -71,7 +95,7 @@ public class EnemySpawner : MonoBehaviour
         if (_enemyCount <= 0)
         {
             Debug.LogWarning("LEVEL END :D");
-            GameManager.WaveEnded(_waveNumber);
+            GameManager.EndLevel();
         }
     }
 

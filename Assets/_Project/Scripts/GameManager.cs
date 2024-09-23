@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Globalization;
 
 public class GameManager : MonoBehaviour
 {
@@ -73,17 +74,23 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    public void WaveEnded(int waveNum)
+    public void EndLevel()
     {
-        HUD.enabled = false;
+        HUD.enabled = false;    
+        EnemyManager.KillProjectiles();
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
-    public void StartNextWave(int waveNum)
+    public void StartNextLevel()
     {
-        HUD.enabled = true;
-        StartCoroutine(StartWave());
+        StartCoroutine(IEStartLevel());
+    }
 
+    private IEnumerator IEStartLevel()
+    {
+        yield return new WaitForSeconds(1);
+        HUD.enabled = true;
+        EnemyManager.StartWave();
     }
 
     private void StartGame()
@@ -119,7 +126,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        EnemyManager.StartGame(_lastPortal.transform);
+        EnemyManager.StartFirstWave(_lastPortal.transform);
 
     }
 
@@ -199,19 +206,39 @@ public class GameManager : MonoBehaviour
         // You can re-enable AR features here
     }
 
+    public void Upgrade (string name)
+    {
+        switch (name)
+        {
+            case "Heal":
+                PlayerManager.Heal();
+                break;
+            case "Fire":
+                PlayerManager.Fire();
+                break;
+            case "Ice":
+                PlayerManager.Ice();
+                break;
+            case "Damage":
+                PlayerManager.Damage();
+                break;
+            case "Health":
+                PlayerManager.Health();
+                break;
+            case "Cooldown":
+                PlayerManager.CoolDown();
+                break;
+            case "Electric":
+                PlayerManager.Electric();
+                break;
+            default:
+                Debug.LogError("invalid uprade name: "+ name);
+                break;
+        }
+    }
 
 
-
-    #region UpgradeButtonMethods
-    public void Heal() { Debug.LogWarning("1"); }
-    public void Fire() { Debug.LogWarning("2"); }
-    public void Ice() { Debug.LogWarning("3"); }
-    public void CoolDown() { Debug.LogWarning("4"); }
-    public void Damage() { Debug.LogWarning("5"); }
-    public void Health() { Debug.LogWarning("6"); }
-    public void Electric() { Debug.LogWarning("7"); }
-    public void Cooldown() { Debug.LogWarning("8"); }
-    #endregion
+    
 
 
 }

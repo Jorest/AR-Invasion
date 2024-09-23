@@ -7,7 +7,6 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-
     [SerializeField] List<GameObject> ProjectileTypes = new List<GameObject>();
 
 
@@ -16,6 +15,7 @@ public class Player : MonoBehaviour
     private float _cooldown = 0.01f;
     private bool _canShoot = true;
     private int _projectileType = 0;
+    private int _projectileDamage = 10;
 
     private GameManager _gameManager;
 
@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform ProjectilePos;
 
     public static Player Instance { get; private set; }
+    public int ProjectileType { get => _projectileType; set => _projectileType = value; }
 
     private void Awake()
     {
@@ -47,33 +48,20 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        ShootButton.onClick.AddListener(TryShooting);
+        ShootButton.onClick.AddListener(Shoot);
     }
-    public void TryShooting()
+    public void Shoot()
     {
 
-        StartCoroutine(Shoot());
-        
-        /*
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        bullet.transform.rotation = this.transform.rotation;
-        bullet.transform.position = this.transform.position;
-        rb.AddForce(this.transform.forward * 1200f);
-        Destroy(bullet, 3);
-        */
-
+        StartCoroutine(IEShoot());        
     }
-
-
-
-
-    private IEnumerator Shoot()
+    private IEnumerator IEShoot()
     {
         if (_canShoot)
         {
             _canShoot = false;
             GameObject bullet = Instantiate(ProjectileTypes[_projectileType], ProjectilePos.position, ProjectilePos.rotation);
-            bullet.GetComponent<Projectile>().Damage = 1;
+            bullet.GetComponent<Projectile>().Damage = _projectileDamage;
             float elapsedTime = 0f;
             while (elapsedTime < _cooldown)
             {
@@ -119,10 +107,79 @@ public class Player : MonoBehaviour
         TextLifeNumber.text = (_healthTotal + "/" + _health);
     }
 
+    public void IncreaseDamage()
+    {
+        _projectileDamage = (int)Mathf.Ceil(_projectileDamage * 1.5f); 
+    }
+
     public void HandleTrigger(Collider other)
     {
         Debug.Log("Handling trigger with: " + other.gameObject.name);
     }
+
+
+
+    #region UpgradeButtonMethods
+    public void Heal()
+    {
+
+        Debug.LogWarning("Healed Upgrade");
+        Heal(15);
+        _gameManager.StartNextLevel();
+    }
+    public void Fire()
+    {
+
+        _projectileType = 3;
+        Debug.LogWarning("Fire Upgrade");
+        _gameManager.StartNextLevel();
+
+    }
+    public void Ice()
+    {
+
+        _projectileType = 2;
+        Debug.LogWarning("Ice Upgrade");
+        _gameManager.StartNextLevel();
+    }
+
+    public void Electric()
+    {
+        _projectileType = 1;
+        Debug.LogWarning("Electric Upgrade");
+        _gameManager.StartNextLevel();
+    }
+
+    public void Damage()
+    {
+
+        IncreaseDamage();
+        Debug.LogWarning("Damage Upgrade");
+        _gameManager.StartNextLevel();
+    }
+
+    public void CoolDown()
+    {
+
+        _cooldown = _cooldown / 2;
+        Debug.LogWarning("CoolDown Upgrade");
+        _gameManager.StartNextLevel(); 
+
+
+
+    }
+    public void Health() {
+
+        Debug.LogWarning("Health Upgrade");
+        _healthTotal += 10;
+        //upgade UI
+        LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
+        TextLifeNumber.text = (_healthTotal + "/" + _health);
+
+        _gameManager.StartNextLevel();
+
+    }
+    #endregion
 
     /*
      *0:Nature

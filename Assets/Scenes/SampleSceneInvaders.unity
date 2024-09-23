@@ -3994,18 +3994,18 @@ PrefabInstance:
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 41514066}
+      objectReference: {fileID: 251365314}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
@@ -4014,12 +4014,12 @@ PrefabInstance:
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SetActive
+      value: UpdateUIClose
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UpgradeManager, ProjectaAssemblyDef
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
@@ -5563,18 +5563,18 @@ PrefabInstance:
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 41514066}
+      objectReference: {fileID: 251365314}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
@@ -5583,12 +5583,12 @@ PrefabInstance:
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SetActive
+      value: UpdateUIClose
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UpgradeManager, ProjectaAssemblyDef
       objectReference: {fileID: 0}
     - target: {fileID: 2483930004255019844, guid: 47106cc1b58a0bb49b031687da8af0f7,
         type: 3}

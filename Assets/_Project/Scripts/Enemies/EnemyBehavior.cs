@@ -160,6 +160,7 @@ public class EnemyBehavior : MonoBehaviour
             }
             _speed = 0f; // Ensure it is exactly 0 after the lerp
             GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
+            _enemySpawner.Projectiles.Add(torpedo);
             yield return new WaitForSeconds(_shootAnimationTime);
             // Restore the original rotation speed
             _speed = initialSpeed;

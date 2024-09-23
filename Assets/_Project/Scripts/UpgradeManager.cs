@@ -8,8 +8,7 @@ using System.Reflection;
 
 public class UpgradeManager : MonoBehaviour
 {
-    private bool upgraded = false;
-    private UnityAction lastAction;
+    private bool _upgraded = false;
     public List<Upgrade> availableUpgrades;  // Populate this in the Inspector with all possible upgrades
     public int numberOfOptions = 3;  // How many options to present to the player
     [SerializeField] GameManager gameManager;
@@ -28,8 +27,15 @@ public class UpgradeManager : MonoBehaviour
     public void ShowUpgrades(Transform portalTransform)
     {
         UPgradeUI.transform.position = portalTransform.position;
-        Vector3 originalRot = UPgradeUI.transform.eulerAngles;       
-        UPgradeUI.transform.eulerAngles= new Vector3 (originalRot.x, originalRot.y+ portalTransform.eulerAngles.y, originalRot.z);
+
+        Vector3 TowardsX = portalTransform.right;
+        TowardsX.y = 0;
+        TowardsX.Normalize();
+        Quaternion targetRotation = Quaternion.LookRotation(TowardsX);
+
+        Vector3 originalRot = UPgradeUI.transform.eulerAngles;
+        UPgradeUI.transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y-90, 0);
+        //UPgradeUI.transform.eulerAngles= new Vector3 (originalRot.x, originalRot.y+ portalTransform.eulerAngles.y, originalRot.z);
         StartCoroutine(UpgradeSet());
     }
 
@@ -37,6 +43,7 @@ public class UpgradeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         UPgradeUI.SetActive(true);
+        UpdateUIOpen();
 
         // Randomly select a set of upgrades to present to the player
         List<Upgrade> selectedUpgrades = GetRandomUpgrades();
@@ -64,7 +71,7 @@ public class UpgradeManager : MonoBehaviour
                 Fields[i].text = up.Description;
                 FrameImages[i].color = up.FrameColor;
                 Instantiate(up.VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
-                AssingUpgradeMethod(up.name, ConfimButtons[i]);
+                AssingUpgradeMethod(up.UpgradeName, ConfimButtons[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
                 if (!availableUpgrades[randomIndex].infinite)
                 {
@@ -72,42 +79,22 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
         }
-        upgraded = true;
+        _upgraded = true;
         return randomUpgrades;
     }
 
     private void AssingUpgradeMethod(string name, Button button)
     {
 
-        if (upgraded)
+        if (_upgraded)
         {
+            Debug.LogWarning("Not the first upgrade");
             RemoveLastButtonListener(button);
         }
+        Debug.LogWarning("Method add");
 
-        switch (name)
-        {
-            case "Heal":
-                button.onClick.AddListener(gameManager.Heal);
-                break;
-            case "Fire":
-                button.onClick.AddListener(gameManager.Fire);
-                break;
-            case "Ice":
-                button.onClick.AddListener(gameManager.Ice);
-                break;
-            case "Damage":
-                button.onClick.AddListener(gameManager.Damage);
-                break;
-            case "Health":
-                button.onClick.AddListener(gameManager.Health);
-                break;
-            case "Cooldown":
-                button.onClick.AddListener(gameManager.Cooldown);
-                break;
-            case "Electric":
-                button.onClick.AddListener(gameManager.Electric);
-                break;
-        }
+        button.onClick.AddListener(() => gameManager.Upgrade(name));
+
     }
     //referenced by Editor
     public void UpdateUIClose()
@@ -117,6 +104,15 @@ public class UpgradeManager : MonoBehaviour
             TransformsUpgradeUI[i].gameObject.SetActive(false);
         }
     }
+
+    public void UpdateUIOpen()
+    {
+        for (int i = 0; i < TransformsUpgradeUI.Count; i++)
+        {
+            TransformsUpgradeUI[i].gameObject.SetActive(true);
+        }
+    }
+
 
 
 
