@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void EndLevel()
     {
         HUD.enabled = false;    
-        EnemyManager.KillProjectiles();
+     //   EnemyManager.KillProjectiles();
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
@@ -231,6 +231,7 @@ public class GameManager : MonoBehaviour
             case "Electric":
                 PlayerManager.Electric();
                 break;
+
             default:
                 Debug.LogError("invalid uprade name: "+ name);
                 break;

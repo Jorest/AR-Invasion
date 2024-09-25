@@ -22,7 +22,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] List<Transform> TransformsUpgradeUI;
     [SerializeField] List<Button> ConfimButtons;
 
-    
+
 
     public void ShowUpgrades(Transform portalTransform)
     {
@@ -34,7 +34,7 @@ public class UpgradeManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(TowardsX);
 
         Vector3 originalRot = UPgradeUI.transform.eulerAngles;
-        UPgradeUI.transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y-90, 0);
+        UPgradeUI.transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y - 90, 0);
         //UPgradeUI.transform.eulerAngles= new Vector3 (originalRot.x, originalRot.y+ portalTransform.eulerAngles.y, originalRot.z);
         StartCoroutine(UpgradeSet());
     }
@@ -73,9 +73,12 @@ public class UpgradeManager : MonoBehaviour
                 Instantiate(up.VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
                 AssingUpgradeMethod(up.UpgradeName, ConfimButtons[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
-                if (!availableUpgrades[randomIndex].infinite)
+                
+                // one time offer ? 
+                if (availableUpgrades[randomIndex].infinite==false)
                 {
                     availableUpgrades.RemoveAt(randomIndex);
+                    Debug.LogWarning("REMOVED"+ availableUpgrades.Count);
                 }
             }
         }
@@ -96,12 +99,15 @@ public class UpgradeManager : MonoBehaviour
         button.onClick.AddListener(() => gameManager.Upgrade(name));
 
     }
+
+
     //referenced by Editor
     public void UpdateUIClose()
     {
         for (int i = 0; i < TransformsUpgradeUI.Count; i++)
         {
             TransformsUpgradeUI[i].gameObject.SetActive(false);
+            Destroy(TransformsIcon[i].GetChild(0).gameObject);
         }
     }
 
@@ -111,10 +117,9 @@ public class UpgradeManager : MonoBehaviour
         {
             TransformsUpgradeUI[i].gameObject.SetActive(true);
         }
+
+
     }
-
-
-
 
     //from chat gpt 
     void RemoveLastButtonListener(Button button)

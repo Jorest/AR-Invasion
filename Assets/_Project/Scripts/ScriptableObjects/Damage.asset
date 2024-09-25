@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a9002d49d29d884baffea8fba66f4f2, type: 3}
-  m_Name: Electric
+  m_Name: Damage
   m_EditorClassIdentifier: 
-  UpgradeName: Electric
-  Description: electric eeeeye
-  infinite: 0
-  Type: 2
-  FrameColor: {r: 0.2679245, g: 1, b: 0.65372443, a: 0.9019608}
-  VisualElement: {fileID: 4143191219167363193, guid: e068521c3013bbf4f97bde3b0cb34e6c,
+  UpgradeName: Damage
+  Description: 'Damage Crystal: Increases the Base damage of your projectile by 1.5'
+  infinite: 1
+  Type: 0
+  FrameColor: {r: 1, g: 1, b: 1, a: 1}
+  VisualElement: {fileID: 1168966368610031635, guid: 591b7776c6e04ec47ab5a92de8bd6d94,
     type: 3}

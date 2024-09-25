@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Freeze
   m_EditorClassIdentifier: 
   UpgradeName: Ice
-  Description: 'Ice: modifies your projectile into an ice-infused shot. When it hits,
-    the ice projectile slows the enemy''s movement significantly ,in addition to
-    the initial damage.'
-  infinite: 1
+  Description: 'ONE TIME OFFER: transforms your  projectile into an ice-infused shot.
+    When it hits, the ice projectile slows the enemy''s movement significantly.'
+  infinite: 0
   Type: 3
   FrameColor: {r: 0.56037736, g: 0.6462992, b: 1, a: 0.9019608}
   VisualElement: {fileID: 4128378557812326318, guid: faf8c1ffd97e1674e8c064fc19bd7859,

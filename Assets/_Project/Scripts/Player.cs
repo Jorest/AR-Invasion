@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
 
     private int _health = 25;
     private int _healthTotal = 25;
-    private float _cooldown = 0.01f;
+    private float _cooldown = 1f;
     private bool _canShoot = true;
-    private int _projectileType = 0;
-    private int _projectileDamage = 10;
+    private int _projectileType = 2;
+    private int _projectileDamage = 1;
 
     private GameManager _gameManager;
 
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
         {
             _health -= damage;
             LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
-            TextLifeNumber.text = (_healthTotal + "/" + _health);
+            TextLifeNumber.text = (_health + "/" + _healthTotal);
         }
         if (_health == 0) {
 
@@ -98,13 +98,16 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Heal(int heal)
+    public void HealAmount(int heal)
     {
         _health += heal;
         if (_health > _healthTotal)
+        {
             _health = _healthTotal;
+
+        }
         LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
-        TextLifeNumber.text = (_healthTotal + "/" + _health);
+        TextLifeNumber.text = (_health + "/" + _healthTotal);
     }
 
     public void IncreaseDamage()
@@ -124,7 +127,7 @@ public class Player : MonoBehaviour
     {
 
         Debug.LogWarning("Healed Upgrade");
-        Heal(15);
+        HealAmount(15);
         _gameManager.StartNextLevel();
     }
     public void Fire()
@@ -174,7 +177,7 @@ public class Player : MonoBehaviour
         _healthTotal += 10;
         //upgade UI
         LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
-        TextLifeNumber.text = (_healthTotal + "/" + _health);
+        TextLifeNumber.text = (_health + "/" + _healthTotal);
 
         _gameManager.StartNextLevel();
 

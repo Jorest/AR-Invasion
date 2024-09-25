@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -12,7 +13,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool alive = true;
     private EnemySpawner _enemySpawner;
 
-    private int _healtPoints = 4;
+    private float _healtPoints = 5;
     private float _torPedoCoolDown = 5f;
     private float minDistance = 0.2f; // Minimum distance between enemies to avoid collisions
     private float areaRadius = 0.4f; // Radius of the area in front of the portal
@@ -27,11 +28,30 @@ public class EnemyBehavior : MonoBehaviour
     private float _distanceFoward = 2f;
     private bool _fowardone = false;
 
+    private float _fireTimer = 0f;
+    private float _freezeTime = 0f;
+    private float _electroTime = 0f;
+    private float _pingInterval = 0.3f;
+
     [SerializeField] private float StopDistance = 1f;
+    [SerializeField] private float SpeedValue =  0.1f;
     [SerializeField] GameObject DamagedGameObject;
     [SerializeField] ParticleSystem Explosion;
+    [SerializeField] Collider Collider;
     [SerializeField] MeshRenderer MainMesh;
     [SerializeField] GameObject TorpedoPrefab;
+
+
+    [Header("Visual Overlays")]
+    [SerializeField] MeshRenderer Elctro;
+    [SerializeField] MeshRenderer Fire;
+    [SerializeField] MeshRenderer Ice;
+    [SerializeField] MeshRenderer Shield;
+
+
+
+
+
 
 
 
@@ -43,7 +63,7 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         _enemySpawner = EnemySpawner.Instance;
-
+        _speed = SpeedValue;
         //move outside of the portal
         StartCoroutine(MoveFoward());
         //start shooting torpedos;
@@ -112,6 +132,7 @@ public class EnemyBehavior : MonoBehaviour
     }
     private IEnumerator MoveFoward()
     {
+        Shield.enabled = true;
         yield return new WaitForSeconds(0.3f);
 
         float elapsedTime = 0f;
@@ -136,12 +157,14 @@ public class EnemyBehavior : MonoBehaviour
             // Wait until the next frame
             yield return null;
         }
+        Collider.enabled = true;
+        Shield.enabled = false;
         _fowardone = true;
         // transform.position = new Vector3(0,0,0);
     }       
     private IEnumerator StartShooting()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() => _fowardone);
 
         while (_healtPoints > 0 ) { 
         
@@ -161,6 +184,7 @@ public class EnemyBehavior : MonoBehaviour
             _speed = 0f; // Ensure it is exactly 0 after the lerp
             GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
             _enemySpawner.Projectiles.Add(torpedo);
+   
             yield return new WaitForSeconds(_shootAnimationTime);
             // Restore the original rotation speed
             _speed = initialSpeed;
@@ -222,25 +246,99 @@ public class EnemyBehavior : MonoBehaviour
             switch (projectile.Type)
             {
                 case ProjectileType.Fireball:
-                    _frozen = false;
-                    _burned = true;
+                     StartCoroutine(Burned(3f));
                     break;
                 case ProjectileType.Electro:
                     _electrocuted = true; 
                     break;
                 case ProjectileType.Freeze:
-                    _frozen = true;
-                    _burned = false;
+                    StartCoroutine(Freezed(3f));
                     break;
 
                 default:
                     break;
 
             }
-            UpdateVisuals();
         }
     }
 
+    private void Hited(float damage)
+    {
+        _healtPoints -= damage;
+        if (_healtPoints <= 0)
+        {
+            Die();
+        }
+    }
+
+
+    private IEnumerator Burned(float time)
+    {
+        if (!_burned)
+        {
+            _fireTimer = time;
+            _burned = true;
+            Fire.enabled = true;
+            float nextDamageTime = _pingInterval;
+            while (_fireTimer > 0 )             
+            {
+                _fireTimer -= Time.deltaTime;
+                nextDamageTime -= Time.deltaTime;
+
+                if (nextDamageTime <= 0)
+                {
+                    Fire.enabled = !Fire.enabled;
+                    Hited(0.5f);
+                    nextDamageTime = _pingInterval; // Reset the timer for the next damage
+                }
+
+                yield return null;
+
+            }
+            _burned = false;
+            Fire.enabled = false;
+
+        }
+        else
+        {
+            _fireTimer = time; //reset the time 
+        }
+
+    }
+
+    private IEnumerator Freezed(float time)
+    {
+        if (!_frozen)
+        {
+            _frozen = true;
+            Ice.enabled = true;
+            _freezeTime = time;
+            _speed = _speed / 2;
+            while (_freezeTime > 0)
+            {
+                _freezeTime -= Time.deltaTime;
+                yield return null;
+
+            }
+            _speed = SpeedValue;
+            _frozen = false;
+            Ice.enabled = false;
+
+        }
+        else
+        {
+            _speed =_speed / 2;
+            _fireTimer = time; //reset the time 
+        }
+
+    }
+
+
+
+    private IEnumerator Electrocuted()
+    {
+        yield return null;
+    }
 
     private void Die()
     {
@@ -252,14 +350,10 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     #region Visual Methods
-    private void UpdateVisuals()
-    {
-            
-    }
 
     private IEnumerator Explote()
     {
-        DamageBlink();
+        StopCoroutine(DamageBlink());
         yield return new WaitForSeconds(0.2f);
         MainMesh.enabled = false;
         Explosion.Play();

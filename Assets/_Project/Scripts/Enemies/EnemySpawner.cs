@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     private int _waveNumber = 1;
-    private int _packAmount = 1;
+    private int _packAmount = 3;
     private float spawnDelay = 5;
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
@@ -70,15 +70,20 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < waveNumber; i++)
         {
             SpawnRandomEnemies();
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
     public void KillProjectiles()
     {
         foreach (GameObject projectile in _projectiles)
         {
-            Destroy(projectile);
+            if (projectile!=null)
+            {
+                Destroy(projectile);
+
+            }
         }
+        _projectiles.Clear();
     }
 
 
@@ -94,6 +99,7 @@ public class EnemySpawner : MonoBehaviour
         _enemyCount--;
         if (_enemyCount <= 0)
         {
+            KillProjectiles();
             Debug.LogWarning("LEVEL END :D");
             GameManager.EndLevel();
         }
@@ -109,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
             //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
             enemy.transform.localPosition = Vector3.zero;
             enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
-            yield return new WaitForSeconds (spawnDelay);
+            yield return new WaitForSeconds (0.5f);
         }
     }
 

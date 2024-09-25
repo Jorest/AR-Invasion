@@ -1764,6 +1764,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b499c2fe376cdd4cae84f86595eabac, type: 2}
   - {fileID: 11400000, guid: b7299af705149a847b1035fa38592c4b, type: 2}
   - {fileID: 11400000, guid: bad268141fc7d454fbcefe037c8cc3fa, type: 2}
+  - {fileID: 11400000, guid: 2651aa84a28dff24ebdcfa2d0babaca7, type: 2}
+  - {fileID: 11400000, guid: afaeffb43da8dd946b1d31eecf1168d3, type: 2}
   numberOfOptions: 3
   gameManager: {fileID: 1170023727}
   UPgradeUI: {fileID: 41514066}
