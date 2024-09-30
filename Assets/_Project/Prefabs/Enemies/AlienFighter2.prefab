@@ -1,133 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1090749546498999678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1849357935159513427}
-  - component: {fileID: 6154826658837415908}
-  m_Layer: 0
-  m_Name: AuidoSource
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1849357935159513427
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090749546498999678}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4896930949768555856}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6154826658837415908
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090749546498999678}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1588816262575728664
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588816262575728664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.024}
+  m_LocalScale: {x: 1.02, y: 1.02, z: 1.02}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4896930949768555856}
@@ -35166,7 +35038,7 @@ GameObject:
   - component: {fileID: 1289697633034165071}
   - component: {fileID: 3538490007084604676}
   m_Layer: 0
-  m_Name: AlienFighter1
+  m_Name: AlienFighter2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35181,10 +35053,9 @@ Transform:
   m_GameObject: {fileID: 3564424461345242428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.035, y: 0.035, z: 0.035}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1849357935159513427}
   - {fileID: 4945473754732380791}
   - {fileID: 3523842130305769516}
   - {fileID: 4877379528825205451}
@@ -35223,7 +35094,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc3d169a8ef803d4abf078bc075e99e4, type: 2}
+  - {fileID: 2100000, guid: 84a2b5a80e12d4340b0392ba4f7f1e01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35257,8 +35128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3638fb3b8a5714143a0edca81de28558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedValue: 0.1
-  _healtPoints: 4
+  _speedValue: 0.22
+  _healtPoints: 3
   _torpedoCoolDown: 4
   DamagedGameObject: {fileID: 8073053036842340668}
   Explosion: {fileID: 3614347413534572648}
@@ -35266,7 +35137,6 @@ MonoBehaviour:
   MainMesh: {fileID: 408287559099276292}
   TorpedoPrefab: {fileID: 1320069977197851723, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
     type: 3}
-  audioSource: {fileID: 6154826658837415908}
   Electro: {fileID: 5085528263203727921}
   Fire: {fileID: 3069864404482238997}
   Ice: {fileID: 4210732190773893886}
@@ -35760,11 +35630,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PortalPassEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 3992058561654064293, guid: 13c990b8270c70b4c9f196019286028c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6275681469945861091, guid: 13c990b8270c70b4c9f196019286028c,
         type: 3}

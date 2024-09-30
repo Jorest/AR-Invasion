@@ -11,6 +11,7 @@ public class UpgradeManager : MonoBehaviour
     private bool _upgraded = false;
     public List<Upgrade> availableUpgrades;  // Populate this in the Inspector with all possible upgrades
     public int numberOfOptions = 3;  // How many options to present to the player
+    public float UpgradeShowDelay = 2f;
     [SerializeField] GameManager gameManager;
 
     [Header("UI selection")]
@@ -41,7 +42,7 @@ public class UpgradeManager : MonoBehaviour
 
     private IEnumerator UpgradeSet()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(UpgradeShowDelay);
         UPgradeUI.SetActive(true);
         UpdateUIOpen();
 

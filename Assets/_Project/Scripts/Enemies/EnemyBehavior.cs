@@ -10,19 +10,17 @@ public class EnemyBehavior : MonoBehaviour
     private bool _electrocuted = false;
     private bool _burned = false;
     private bool _frozen = false;
-    private bool alive = true;
+    private bool _alive = true;
     private EnemySpawner _enemySpawner;
 
-    private float _healtPoints = 5;
-    private float _torPedoCoolDown = 5f;
-    private float minDistance = 0.2f; // Minimum distance between enemies to avoid collisions
-    private float areaRadius = 0.4f; // Radius of the area in front of the portal
-    public float changeTargetTime = 3f; // Time to change direction or position
-    private Vector3 targetLocalPosition; // Random position to move towards
+   
+    private float _minDistance = 0.2f; // Minimum distance between enemies to avoid collisions
+    private float _areaRadius = 0.4f; // Radius of the area in front of the portal
+    private Vector3 _targetLocalPosition; // Random position to move towards
 
 
     private Camera _camera;
-    private float _speed = 0.1f; // Movement speed of enemies
+    private float _speed = 0.1f; // Variable movement speed of enemies
     private float _rotationSpeed = 8f;
     private float _shootAnimationTime = 1.1f;
     private float _distanceFoward = 2f;
@@ -30,17 +28,24 @@ public class EnemyBehavior : MonoBehaviour
 
     //debuff timers 
     private float _fireTimer = 0f;
-    private float _freezeTimer = 0f;
+    private float _freezeTimer = 0f;    
     private float _electroTimer = 0f;
     private float _pingInterval = 0.3f;
+    private float _stopDistance = 1f;
 
-    [SerializeField] private float StopDistance = 1f;
-    [SerializeField] private float SpeedValue =  0.1f;
+    [Header("Adjustable Values")]
+    [SerializeField] private float _speedValue =  0.1f;
+    [SerializeField] private float _healtPoints = 5;
+    [SerializeField] private float _torpedoCoolDown = 5f;
+
+    [Header("Prefab stuff")]
     [SerializeField] GameObject DamagedGameObject;
     [SerializeField] ParticleSystem Explosion;
     [SerializeField] Collider Collider;
     [SerializeField] MeshRenderer MainMesh;
     [SerializeField] GameObject TorpedoPrefab;
+    //[SerializeField] AudioSource audioSource;
+
 
 
     [Header("Visual Overlays")]
@@ -49,8 +54,6 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] MeshRenderer Ice;
     [SerializeField] MeshRenderer Shield;
 
-
-
     private float yMovementRange = 0.1f;
 
     #region UnityDefault
@@ -58,13 +61,13 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         _enemySpawner = EnemySpawner.Instance;
-        _speed = SpeedValue;
+        _speed = _speedValue;
         //move outside of the portal
         StartCoroutine(MoveFoward());
         //start shooting torpedos;
         StartCoroutine(StartShooting());
 
-        GetNewRandomPosition(); // Set initial target position
+        GetNewRandomPosition(); // Set initial target position to move towards
         
 
     }
@@ -102,29 +105,9 @@ public class EnemyBehavior : MonoBehaviour
 
     #endregion
 
-    private void MoveEnemy()
-    {
-        // Move towards the target position
-        Vector3 direction = (targetLocalPosition - transform.localPosition).normalized;
-        transform.localPosition += direction * _speed * Time.deltaTime;
+     
+    #region Movement
 
-        // Check if the enemy is close to the target position and get a new one
-        if (Vector3.Distance(transform.localPosition, targetLocalPosition) < 0.1f)
-        {
-            GetNewRandomPosition();
-        }
-    }
-    private void GetNewRandomPosition()
-    {
-        // Define a random position within the area in front of the portal
-        float radiusx = Random.Range(-areaRadius, areaRadius );
-        float radiusz = Random.Range(-areaRadius, areaRadius);
-        float radiusy = Random.Range(0.01f, 0.3f);
-
-        //  randomDirection    += transform.parent.position;
-        // Make sure the new position is within the specified area
-        targetLocalPosition = new Vector3(radiusx, radiusy, radiusz);
-    }
     private IEnumerator MoveFoward()
     {
         Shield.enabled = true;
@@ -156,43 +139,33 @@ public class EnemyBehavior : MonoBehaviour
         Shield.enabled = false;
         _fowardone = true;
         // transform.position = new Vector3(0,0,0);
-    }       
-    private IEnumerator StartShooting()
+    }
+    private void MoveEnemy()
     {
-        yield return new WaitUntil(() => _fowardone);
+        // Move towards the target position
+        Vector3 direction = (_targetLocalPosition - transform.localPosition).normalized;
+        transform.localPosition += direction * _speed * Time.deltaTime;
 
-        while (_healtPoints > 0 ) { 
-        
-            // Lerp the _rotationSpeed to 0 over time
-            float elapsedTime = 0f;
-            float duration = 0.5f; // Adjust this value to control the speed of the lerp
-            float initialSpeed = _speed;
-
-
-            // nested while to lerp the speed to 0 
-            while (elapsedTime < duration)
-            {
-                _rotationSpeed = Mathf.Lerp(initialSpeed, 0f, elapsedTime / duration);
-                elapsedTime += Time.deltaTime;
-                yield return null; // Wait for the next frame
-            }
-            _speed = 0f; // Ensure it is exactly 0 after the lerp
-            //fires projectile if not electrocuted
-            
-            if (!_electrocuted)
-            {
-                GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
-                _enemySpawner.Projectiles.Add(torpedo);
-            }
-            yield return new WaitForSeconds(_shootAnimationTime);
-            // Restore the original rotation speed
-            _speed = initialSpeed;
-            yield return new WaitForSeconds(_torPedoCoolDown);
+        // Check if the enemy is close to the target position and get a new one
+        if (Vector3.Distance(transform.localPosition, _targetLocalPosition) < 0.1f)
+        {
+            GetNewRandomPosition();
         }
+    }
+    private void GetNewRandomPosition()
+    {
+        // Define a random position within the area in front of the portal
+        float radiusx = Random.Range(-_areaRadius, _areaRadius);
+        float radiusz = Random.Range(-_areaRadius, _areaRadius);
+        float radiusy = Random.Range(0.01f, 0.3f);
+
+        //  randomDirection    += transform.parent.position;
+        // Make sure the new position is within the specified area
+        _targetLocalPosition = new Vector3(radiusx, radiusy, radiusz);
     }
     private void AvoidOtherEnemies()
     {
-        Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, minDistance);
+        Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, _minDistance);
 
         foreach (Collider enemy in nearbyEnemies)
         {
@@ -206,7 +179,6 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
     }
-
     void LookAtCamera()
     {
         Vector3 direction = _camera.transform.position - transform.position;
@@ -227,12 +199,48 @@ public class EnemyBehavior : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _camera.transform.position);
 
         // Check if the enemy is farther than the stopDistance
-        if (distance > StopDistance)
+        if (distance > _stopDistance)
         {
             // Move the enemy towards the player
             transform.position = Vector3.MoveTowards(transform.position, _camera.transform.position, 0.2f * Time.deltaTime);
         }
     }
+    #endregion
+    private IEnumerator StartShooting()
+    {
+        yield return new WaitUntil(() => _fowardone);
+
+        while (_healtPoints > 0)
+        {
+
+            // Lerp the _rotationSpeed to 0 over time
+            float elapsedTime = 0f;
+            float duration = 0.5f; // Adjust this value to control the speed of the lerp
+            float initialSpeed = _speed;
+
+
+            // nested while to lerp the speed to 0 
+            while (elapsedTime < duration)
+            {
+                _rotationSpeed = Mathf.Lerp(initialSpeed, 0f, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null; // Wait for the next frame
+            }
+            _speed = 0f; // Ensure it is exactly 0 after the lerp
+                         //fires projectile if not electrocuted
+
+            if (!_electrocuted)
+            {
+                GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
+                _enemySpawner.Projectiles.Add(torpedo);
+            }
+            yield return new WaitForSeconds(_shootAnimationTime);
+            // Restore the original rotation speed
+            _speed = initialSpeed;
+            yield return new WaitForSeconds(_torpedoCoolDown);
+        }
+    }
+
     private void Hited(Projectile projectile)
     {
         _healtPoints -= projectile.Damage;
@@ -270,7 +278,16 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        if (_alive == true)
+            _enemySpawner.ReportEnemyDeath();
+        _alive = false;
+        gameObject.GetComponent<Collider>().enabled = false;
+        StartCoroutine(Explote());
+    }
 
+    #region Debufs
     private IEnumerator Burned(float time)
     {
         if (!_burned)
@@ -320,7 +337,7 @@ public class EnemyBehavior : MonoBehaviour
                 yield return null;
 
             }
-            _speed = SpeedValue;
+            _speed = _speedValue;
             _frozen = false;
             Ice.enabled = false;
 
@@ -331,7 +348,6 @@ public class EnemyBehavior : MonoBehaviour
             _freezeTimer = time; //reset the time 
         }
     }
-
 
     private IEnumerator Electrocuted(float time)
     {
@@ -360,16 +376,7 @@ public class EnemyBehavior : MonoBehaviour
         }
 
     }
-
-
-    private void Die()
-    {
-        if (alive == true) 
-            _enemySpawner.ReportEnemyDeath();
-        alive = false;
-        gameObject.GetComponent<Collider>().enabled = false;
-        StartCoroutine(Explote());
-    }
+    #endregion
 
     #region Visual Methods
 

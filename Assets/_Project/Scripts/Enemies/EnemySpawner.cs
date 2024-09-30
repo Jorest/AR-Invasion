@@ -9,8 +9,9 @@ public class EnemySpawner : MonoBehaviour
 
 
     private int _waveNumber = 1;
-    private int _packAmount = 1;
-    private float spawnDelay = 5;
+    private int _packAmount = 2;
+    private float _spawnPackDelay = 5;
+    private float _spawnDelay = 2.5f;
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
     private List<GameObject> _projectiles = new List<GameObject>();
@@ -53,6 +54,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.LogWarning("BOSS FIUGHT 1");
             _waveNumber++;
+            _packAmount++;
 
         }
         else
@@ -71,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
         {
             int randomIndex = Random.Range(0, 3); // 0 - 2
             StartCoroutine(SpawnAliensType(randomIndex));
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(_spawnPackDelay);
         }
     }
     public void KillProjectiles()
@@ -108,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
             //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
             enemy.transform.localPosition = Vector3.zero;
             enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
-            yield return new WaitForSeconds (0.5f);
+            yield return new WaitForSeconds (_spawnDelay);
         }
     }
 

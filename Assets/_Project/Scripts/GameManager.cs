@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private TextMeshProUGUI WaveText;
 
-
+    [SerializeField] private float startWaveDelay = 2f;
 
 
 
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator IEStartLevel()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         _lastPortal.VisualsOn();
         HUD.enabled = true;
         EnemyManager.StartWave();
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartWave()
     {
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(startWaveDelay);
 
         EnemyManager.StartFirstWave(_lastPortal.transform);
 

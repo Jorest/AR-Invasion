@@ -17,6 +17,6 @@ MonoBehaviour:
     and stay in the fight longer.'
   infinite: 1
   Type: 0
-  FrameColor: {r: 0.42830187, g: 1, b: 0.5457629, a: 0.9019608}
+  FrameColor: {r: 0.9811321, g: 0.0129582975, b: 0.71085805, a: 0.9019608}
   VisualElement: {fileID: 460712927330063988, guid: 28cca914fd99f804db64e2c134be1e9d,
     type: 3}

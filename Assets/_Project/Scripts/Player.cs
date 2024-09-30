@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private float _cooldown = 1f;
     private bool _canShoot = true;
     private int _projectileType = 1;
-    private int _projectileDamage = 5;
+    private int _projectileDamage = 1;
 
     private GameManager _gameManager;
 
