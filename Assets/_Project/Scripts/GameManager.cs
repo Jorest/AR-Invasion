@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
 
     public void EndLevel()
     {
-        HUD.enabled = false;    
-     //   EnemyManager.KillProjectiles();
+        HUD.enabled = false;
+        _lastPortal.VisualsOff();
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator IEStartLevel()
     {
         yield return new WaitForSeconds(1);
+        _lastPortal.VisualsOn();
         HUD.enabled = true;
         EnemyManager.StartWave();
     }
@@ -145,7 +146,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
- 
 
     void DissablePlaneRegonition()
     {

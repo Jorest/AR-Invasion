@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     private int _waveNumber = 1;
-    private int _packAmount = 3;
+    private int _packAmount = 1;
     private float spawnDelay = 5;
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
@@ -36,23 +36,22 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartFirstWave(Transform portalTransform)
     {
+        Debug.LogWarning("StartFirstWave");
         if (_portalTransform == null)
             _portalTransform = portalTransform;
-
-       // _portalTransform.position = portalTransform.position;
-       // _portalTransform.rotation = portalTransform.rotation;
 
         StartCoroutine(IEStarWave(_waveNumber));
         _waveNumber++;
     }
     public void StartWave()
     {
-        if (_portalTransform == null)
+        if (_portalTransform == null) 
+        { 
             Debug.LogError("no posiiton for spawning");
-        
-        if (_waveNumber ==(4|7|10) )
+        }
+        if (_waveNumber ==4 )
         {
-            //Star boss
+            Debug.LogWarning("BOSS FIUGHT 1");
             _waveNumber++;
 
         }
@@ -61,15 +60,17 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(IEStarWave(_waveNumber));
             _waveNumber++;
         }
-      
+
     }
 
     private IEnumerator IEStarWave(int waveNumber)
     {
+        Debug.LogWarning("IE StarWave WAVE NUMBER " + _waveNumber);
         _enemyCount = waveNumber * _packAmount;
         for (int i = 0; i < waveNumber; i++)
         {
-            SpawnRandomEnemies();
+            int randomIndex = Random.Range(0, 3); // 0 - 2
+            StartCoroutine(SpawnAliensType(randomIndex));
             yield return new WaitForSeconds(spawnDelay);
         }
     }
@@ -86,14 +87,6 @@ public class EnemySpawner : MonoBehaviour
         _projectiles.Clear();
     }
 
-
-
-    public void SpawnRandomEnemies()
-    {
-        int randomIndex = Random.Range(0, 3); // 0 - 2
-        StartCoroutine(SpawnAliensType(randomIndex));
-     
-    }
     public void ReportEnemyDeath()
     {
         _enemyCount--;

@@ -351,6 +351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _xrAffordanceProv: {fileID: 8265040768607684113}
   _xrInteractable: {fileID: 7657548977611231359}
+  Visuals: {fileID: 6388952249522078604}
+  PortalRing: {fileID: 1197208600939732892}
 --- !u!4 &7657548977611231358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7109682686697656316, guid: 5642b79498b10465fa9219ba4682355b,
@@ -534,6 +536,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad33d58a66ab154a89c9e88255601e5, type: 3}
+--- !u!198 &1197208600939732892 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8724466350249207100, guid: 5ad33d58a66ab154a89c9e88255601e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7606246665724230304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2965257778259405832 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4659087304275547816, guid: 5ad33d58a66ab154a89c9e88255601e5,

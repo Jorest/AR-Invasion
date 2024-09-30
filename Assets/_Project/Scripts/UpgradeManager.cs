@@ -78,7 +78,6 @@ public class UpgradeManager : MonoBehaviour
                 if (availableUpgrades[randomIndex].infinite==false)
                 {
                     availableUpgrades.RemoveAt(randomIndex);
-                    Debug.LogWarning("REMOVED"+ availableUpgrades.Count);
                 }
             }
         }
@@ -94,7 +93,6 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogWarning("Not the first upgrade");
             RemoveLastButtonListener(button);
         }
-        Debug.LogWarning("Method add");
 
         button.onClick.AddListener(() => gameManager.Upgrade(name));
 

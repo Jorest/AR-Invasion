@@ -28,9 +28,10 @@ public class EnemyBehavior : MonoBehaviour
     private float _distanceFoward = 2f;
     private bool _fowardone = false;
 
+    //debuff timers 
     private float _fireTimer = 0f;
-    private float _freezeTime = 0f;
-    private float _electroTime = 0f;
+    private float _freezeTimer = 0f;
+    private float _electroTimer = 0f;
     private float _pingInterval = 0.3f;
 
     [SerializeField] private float StopDistance = 1f;
@@ -43,16 +44,10 @@ public class EnemyBehavior : MonoBehaviour
 
 
     [Header("Visual Overlays")]
-    [SerializeField] MeshRenderer Elctro;
+    [SerializeField] MeshRenderer Electro;
     [SerializeField] MeshRenderer Fire;
     [SerializeField] MeshRenderer Ice;
     [SerializeField] MeshRenderer Shield;
-
-
-
-
-
-
 
 
 
@@ -182,16 +177,19 @@ public class EnemyBehavior : MonoBehaviour
                 yield return null; // Wait for the next frame
             }
             _speed = 0f; // Ensure it is exactly 0 after the lerp
-            GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
-            _enemySpawner.Projectiles.Add(torpedo);
-   
+            //fires projectile if not electrocuted
+            
+            if (!_electrocuted)
+            {
+                GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
+                _enemySpawner.Projectiles.Add(torpedo);
+            }
             yield return new WaitForSeconds(_shootAnimationTime);
             // Restore the original rotation speed
             _speed = initialSpeed;
             yield return new WaitForSeconds(_torPedoCoolDown);
         }
     }
-
     private void AvoidOtherEnemies()
     {
         Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, minDistance);
@@ -246,10 +244,11 @@ public class EnemyBehavior : MonoBehaviour
             switch (projectile.Type)
             {
                 case ProjectileType.Fireball:
-                     StartCoroutine(Burned(3f));
+                     StartCoroutine(Burned(2f));
                     break;
                 case ProjectileType.Electro:
-                    _electrocuted = true; 
+                    StartCoroutine(ShakeObject(0.8f));
+                    StartCoroutine(Electrocuted(3f));
                     break;
                 case ProjectileType.Freeze:
                     StartCoroutine(Freezed(3f));
@@ -312,11 +311,12 @@ public class EnemyBehavior : MonoBehaviour
         {
             _frozen = true;
             Ice.enabled = true;
-            _freezeTime = time;
+            _freezeTimer = time;
             _speed = _speed / 2;
-            while (_freezeTime > 0)
+            while (_freezeTimer > 0)
             {
-                _freezeTime -= Time.deltaTime;
+                _freezeTimer -= Time.deltaTime;
+
                 yield return null;
 
             }
@@ -328,17 +328,39 @@ public class EnemyBehavior : MonoBehaviour
         else
         {
             _speed =_speed / 2;
-            _fireTimer = time; //reset the time 
+            _freezeTimer = time; //reset the time 
+        }
+    }
+
+
+    private IEnumerator Electrocuted(float time)
+    {
+        if (!_electrocuted)
+        {
+            _electrocuted = true;
+            Electro.enabled = true;
+            _electroTimer = time;
+ 
+
+
+            while (_electroTimer > 0)
+            {
+
+                _electroTimer -= Time.deltaTime;
+                yield return null;
+
+            }
+            _electrocuted = false;
+            Electro.enabled = false;
+
+        }
+        else
+        {
+            _electroTimer = time; //reset the time 
         }
 
     }
 
-
-
-    private IEnumerator Electrocuted()
-    {
-        yield return null;
-    }
 
     private void Die()
     {
@@ -370,6 +392,49 @@ public class EnemyBehavior : MonoBehaviour
         DamagedGameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         DamagedGameObject.SetActive(false);
+    }
+
+
+    private IEnumerator ShakeObject(float shakeDuration)
+    {
+    float shakeIntensity = 0.002f;
+
+    // How long the shake lasts
+
+    // How fast the shaking happens
+     float shakeFrequency = 15.0f;
+
+     float startTime = Time.time; // Capture the start time
+
+        Vector3 originalPosition = transform.localPosition;
+     Quaternion originalRotation = transform.localRotation;
+
+        while (Time.time - startTime < shakeDuration)
+        {
+            // Generate random offsets for both position and rotation
+            Vector3 randomPositionOffset = new Vector3(
+                Random.Range(-shakeIntensity, shakeIntensity),
+                Random.Range(-shakeIntensity, shakeIntensity),
+                Random.Range(-shakeIntensity, shakeIntensity)
+            );
+
+            Vector3 randomRotationOffset = new Vector3(
+                Random.Range(-shakeIntensity * 10, shakeIntensity * 10),
+                Random.Range(-shakeIntensity * 10, shakeIntensity * 10),
+                Random.Range(-shakeIntensity * 10, shakeIntensity * 10)
+            );
+
+            // Apply the random position and rotation offsets
+            transform.localPosition = originalPosition + randomPositionOffset;
+            transform.localRotation = Quaternion.Euler(originalRotation.eulerAngles + randomRotationOffset);
+
+            // Wait according to shake frequency (time between each shake)
+            yield return new WaitForSeconds(1.0f / shakeFrequency);
+        }
+
+        // Restore original position and rotation after the shake
+        transform.localPosition = originalPosition;
+        transform.localRotation = originalRotation;
     }
 
     #endregion

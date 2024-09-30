@@ -198,7 +198,7 @@ MonoBehaviour:
   MainMesh: {fileID: 408287559099276292}
   TorpedoPrefab: {fileID: 1320069977197851723, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
     type: 3}
-  Elctro: {fileID: 5085528263203727921}
+  Electro: {fileID: 5085528263203727921}
   Fire: {fileID: 3069864404482238997}
   Ice: {fileID: 4210732190773893886}
   Shield: {fileID: 1479864944368006498}
