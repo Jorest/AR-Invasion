@@ -10,19 +10,5 @@ public class TriggerColOnPlayer : MonoBehaviour
     }
 
 
-    // Called when a collision happens
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.tag.Equals("Torpedo"))
-        {
-            int damage = col.GetComponent<Torpedo>().Damage;
-            Destroy(col.gameObject);
-            _player.TakeDamage(damage);
-        }
-
-
-    }
-
-
 
 }

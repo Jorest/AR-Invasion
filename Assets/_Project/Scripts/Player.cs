@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements.
 using TMPro;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 public class Player : MonoBehaviour
@@ -52,6 +53,17 @@ public class Player : MonoBehaviour
         _gameManager = GameManager.Instance;
         ShootButton.onClick.AddListener(Shoot);
     }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.tag.Equals("Torpedo"))
+        {
+            int damage = col.GetComponent<Torpedo>().Damage;
+            Destroy(col.gameObject);
+            TakeDamage(damage);
+        }
+    }
+
     public void Shoot()
     {
 

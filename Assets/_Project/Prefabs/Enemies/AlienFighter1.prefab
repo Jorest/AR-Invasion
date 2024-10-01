@@ -53,7 +53,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -35260,12 +35260,12 @@ MonoBehaviour:
   _speedValue: 0.1
   _healtPoints: 4
   _torpedoCoolDown: 4
+  TorpedoPrefab: {fileID: 1320069977197851723, guid: a718e26d4d02222468c85efc8bd7fa87,
+    type: 3}
   DamagedGameObject: {fileID: 8073053036842340668}
   Explosion: {fileID: 3614347413534572648}
   Collider: {fileID: 3538490007084604676}
   MainMesh: {fileID: 408287559099276292}
-  TorpedoPrefab: {fileID: 1320069977197851723, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
-    type: 3}
   audioSource: {fileID: 6154826658837415908}
   Electro: {fileID: 5085528263203727921}
   Fire: {fileID: 3069864404482238997}

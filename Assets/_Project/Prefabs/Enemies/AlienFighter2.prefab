@@ -35056,6 +35056,7 @@ Transform:
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1047883596897493513}
   - {fileID: 4945473754732380791}
   - {fileID: 3523842130305769516}
   - {fileID: 4877379528825205451}
@@ -35063,7 +35064,6 @@ Transform:
   - {fileID: 8669765683894180892}
   - {fileID: 147285609485442297}
   - {fileID: 5232472461056876217}
-  - {fileID: 1047883596897493513}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35578,7 +35578,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

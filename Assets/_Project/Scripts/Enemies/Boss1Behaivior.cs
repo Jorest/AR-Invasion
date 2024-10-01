@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour
+public class Boss1Behaivior : MonoBehaviour
 {
 
     private bool _electrocuted = false;
@@ -13,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool _alive = true;
     private EnemySpawner _enemySpawner;
     private SoundManager _soundManager;
-   
+
     private float _minDistance = 0.2f; // Minimum distance between enemies to avoid collisions
     private float _areaRadius = 0.4f; // Radius of the area in front of the portal
     private Vector3 _targetLocalPosition; // Random position to move towards
@@ -28,13 +26,13 @@ public class EnemyBehavior : MonoBehaviour
 
     //debuff timers 
     private float _fireTimer = 0f;
-    private float _freezeTimer = 0f;    
+    private float _freezeTimer = 0f;
     private float _electroTimer = 0f;
     private float _pingInterval = 0.3f;
     private float _stopDistance = 1f;
 
     [Header("Adjustable Values")]
-    [SerializeField] private float _speedValue =  0.1f;
+    [SerializeField] private float _speedValue = 0.1f;
     [SerializeField] private float _healtPoints = 5;
     [SerializeField] private float _torpedoCoolDown = 5f;
 
@@ -72,7 +70,7 @@ public class EnemyBehavior : MonoBehaviour
         StartCoroutine(StartShooting());
 
         GetNewRandomPosition(); // Set initial _target position to move towards
-        
+
 
     }
 
@@ -84,7 +82,7 @@ public class EnemyBehavior : MonoBehaviour
             // MoveTowardsPlayer();
 
             MoveEnemy();
-     //      AvoidOtherEnemies();    
+            //      AvoidOtherEnemies();    
             LookAtCamera();
             // Ensure enemies don't collide with each other
             AvoidOtherEnemies();
@@ -109,7 +107,7 @@ public class EnemyBehavior : MonoBehaviour
 
     #endregion
 
-     
+
     #region Movement
 
     private IEnumerator MoveFoward()
@@ -191,7 +189,7 @@ public class EnemyBehavior : MonoBehaviour
     }
     void RotateAroundTarget(Transform target, float speed)
     {
-        if (_healtPoints > 0) 
+        if (_healtPoints > 0)
         {
             transform.RotateAround(target.position, Vector3.up, speed * Time.deltaTime);
             LookAtCamera();
@@ -252,12 +250,13 @@ public class EnemyBehavior : MonoBehaviour
         if (_healtPoints <= 0)
         {
             Die();
-        }else
+        }
+        else
         {
             switch (projectile.Type)
             {
                 case ProjectileType.Fireball:
-                     StartCoroutine(Burned(2f));
+                    StartCoroutine(Burned(2f));
                     break;
                 case ProjectileType.Electro:
                     StartCoroutine(ShakeObject(0.8f));
@@ -302,7 +301,7 @@ public class EnemyBehavior : MonoBehaviour
             _burned = true;
             Fire.enabled = true;
             float nextDamageTime = _pingInterval;
-            while (_fireTimer > 0 )             
+            while (_fireTimer > 0)
             {
                 _fireTimer -= Time.deltaTime;
                 nextDamageTime -= Time.deltaTime;
@@ -350,7 +349,7 @@ public class EnemyBehavior : MonoBehaviour
         }
         else
         {
-            _speed =_speed / 2;
+            _speed = _speed / 2;
             _freezeTimer = time; //reset the time 
         }
     }
@@ -362,7 +361,7 @@ public class EnemyBehavior : MonoBehaviour
             _electrocuted = true;
             Electro.enabled = true;
             _electroTimer = time;
- 
+
 
 
             while (_electroTimer > 0)
@@ -410,17 +409,17 @@ public class EnemyBehavior : MonoBehaviour
 
     private IEnumerator ShakeObject(float shakeDuration)
     {
-    float shakeIntensity = 0.002f;
+        float shakeIntensity = 0.002f;
 
-    // How long the shake lasts
+        // How long the shake lasts
 
-    // How fast the shaking happens
-     float shakeFrequency = 15.0f;
+        // How fast the shaking happens
+        float shakeFrequency = 15.0f;
 
-     float startTime = Time.time; // Capture the start time
+        float startTime = Time.time; // Capture the start time
 
         Vector3 originalPosition = transform.localPosition;
-     Quaternion originalRotation = transform.localRotation;
+        Quaternion originalRotation = transform.localRotation;
 
         while (Time.time - startTime < shakeDuration)
         {
@@ -451,6 +450,5 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     #endregion
+
 }
-
-

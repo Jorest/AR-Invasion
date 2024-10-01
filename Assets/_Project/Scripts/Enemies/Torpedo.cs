@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Torpedo : MonoBehaviour
 {
-    public float speed = 15f;  // Speed of the torpedo
     private Transform _target;  // Target to move towards
     private Vector3 _direction;
     private SoundManager _soundManager;
-    private int _damage = 5;
+
+    [Header("Variables")]
+    [SerializeField] private float _speed = 0.52f;  // Speed of the torpedo
+    [SerializeField] private int _damage = 5;
+    [SerializeField] private bool _isHoming = false;
+    [Header("Other")]
     [SerializeField] ParticleSystem Fire;
     [SerializeField] AudioSource audioSource;
 
@@ -31,7 +35,7 @@ public class Torpedo : MonoBehaviour
             _direction.Normalize();  // Normalize the _direction to get only the _direction (not magnitude)
 
             // Move the torpedo towards the camera
-            transform.position += _direction * speed * Time.deltaTime;
+            transform.position += _direction * _speed * Time.deltaTime;
 
             // Optional: Rotate the torpedo to face the camera
             transform.rotation = Quaternion.LookRotation(_direction);
@@ -43,10 +47,18 @@ public class Torpedo : MonoBehaviour
         if (_target != null)
         {
             // Move the torpedo towards the camera
-            transform.position += _direction * speed * Time.deltaTime;
+            transform.position += _direction * _speed * Time.deltaTime;
 
             // Optional: Rotate the torpedo to face the camera
             transform.rotation = Quaternion.LookRotation(_direction);
+
+            if (_isHoming)
+            {
+                _direction = _target.position - transform.position;
+                _direction.Normalize();  // Normalize the _direction to get only the _direction (not magnitude)
+
+            }
+
 
         }
     }
@@ -65,7 +77,7 @@ public class Torpedo : MonoBehaviour
     {
         _soundManager.PlaySound("Torpedo", audioSource);
         Fire.Stop();
-        speed = 0;
+        _speed = 0;
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         Explosion.Play(); 
         yield return new WaitForSeconds(Explosion.main.duration);

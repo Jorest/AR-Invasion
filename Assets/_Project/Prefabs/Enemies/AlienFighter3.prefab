@@ -35056,6 +35056,7 @@ Transform:
   m_LocalScale: {x: 0.045, y: 0.045, z: 0.045}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 4228630712197947112}
   - {fileID: 4945473754732380791}
   - {fileID: 3523842130305769516}
   - {fileID: 4877379528825205451}
@@ -35063,7 +35064,6 @@ Transform:
   - {fileID: 8669765683894180892}
   - {fileID: 147285609485442297}
   - {fileID: 5232472461056876217}
-  - {fileID: 4228630712197947112}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35132,12 +35132,12 @@ MonoBehaviour:
   _speedValue: 0.08
   _healtPoints: 6
   _torpedoCoolDown: 4
+  TorpedoPrefab: {fileID: 1320069977197851723, guid: e489cdcaa193432419df64f94ba290c2,
+    type: 3}
   DamagedGameObject: {fileID: 8073053036842340668}
   Explosion: {fileID: 3614347413534572648}
   Collider: {fileID: 3538490007084604676}
   MainMesh: {fileID: 408287559099276292}
-  TorpedoPrefab: {fileID: 1320069977197851723, guid: 8236ba0c2e4ab89409f3ebb156abbbee,
-    type: 3}
   audioSource: {fileID: 3688452832002700886}
   Electro: {fileID: 5085528263203727921}
   Fire: {fileID: 3069864404482238997}
@@ -35329,7 +35329,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
