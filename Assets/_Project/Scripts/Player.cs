@@ -14,9 +14,10 @@ public class Player : MonoBehaviour
     private int _healthTotal = 25;
     private float _cooldown = 1f;
     private bool _canShoot = true;
-    private int _projectileType = 1;
+    private int _projectileType = 0;
     private int _projectileDamage = 1;
 
+    private SoundManager _soundManager;
     private GameManager _gameManager;
 
     [Header("HUD elements")]
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        _soundManager = SoundManager.Instance;
         _gameManager = GameManager.Instance;
         ShootButton.onClick.AddListener(Shoot);
     }
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
             _canShoot = false;
             GameObject bullet = Instantiate(ProjectileTypes[_projectileType], ProjectilePos.position, ProjectilePos.rotation);
             bullet.GetComponent<Projectile>().Damage = _projectileDamage;
+            _soundManager.PlaySound("Shoot");
             float elapsedTime = 0f;
             while (elapsedTime < _cooldown)
             {

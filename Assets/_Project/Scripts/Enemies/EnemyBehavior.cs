@@ -12,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour
     private bool _frozen = false;
     private bool _alive = true;
     private EnemySpawner _enemySpawner;
-
+    private SoundManager _soundManager;
    
     private float _minDistance = 0.2f; // Minimum distance between enemies to avoid collisions
     private float _areaRadius = 0.4f; // Radius of the area in front of the portal
@@ -44,7 +44,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] Collider Collider;
     [SerializeField] MeshRenderer MainMesh;
     [SerializeField] GameObject TorpedoPrefab;
-    //[SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
 
 
 
@@ -60,6 +60,7 @@ public class EnemyBehavior : MonoBehaviour
 
     void Start()
     {
+        _soundManager = SoundManager.Instance;
         _enemySpawner = EnemySpawner.Instance;
         _speed = _speedValue;
         //move outside of the portal
@@ -67,7 +68,7 @@ public class EnemyBehavior : MonoBehaviour
         //start shooting torpedos;
         StartCoroutine(StartShooting());
 
-        GetNewRandomPosition(); // Set initial target position to move towards
+        GetNewRandomPosition(); // Set initial _target position to move towards
         
 
     }
@@ -142,11 +143,11 @@ public class EnemyBehavior : MonoBehaviour
     }
     private void MoveEnemy()
     {
-        // Move towards the target position
+        // Move towards the _target position
         Vector3 direction = (_targetLocalPosition - transform.localPosition).normalized;
         transform.localPosition += direction * _speed * Time.deltaTime;
 
-        // Check if the enemy is close to the target position and get a new one
+        // Check if the enemy is close to the _target position and get a new one
         if (Vector3.Distance(transform.localPosition, _targetLocalPosition) < 0.1f)
         {
             GetNewRandomPosition();
@@ -172,7 +173,7 @@ public class EnemyBehavior : MonoBehaviour
             // Check if the collider has the same tag ("Enemy" in this case)
             if (enemy.CompareTag("Enemy") && enemy != this.GetComponent<Collider>())
             {
-                // Get direction away from the other enemy
+                // Get _direction away from the other enemy
                 Vector3 avoidanceDirection = transform.localPosition - enemy.transform.localPosition;
                 avoidanceDirection.y = 0; // Keep on the same plane
                 transform.localPosition += avoidanceDirection.normalized * _speed * Time.deltaTime;
@@ -231,6 +232,7 @@ public class EnemyBehavior : MonoBehaviour
 
             if (!_electrocuted)
             {
+                _soundManager.PlaySound("AlienShoot", audioSource);
                 GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
                 _enemySpawner.Projectiles.Add(torpedo);
             }
@@ -284,6 +286,7 @@ public class EnemyBehavior : MonoBehaviour
             _enemySpawner.ReportEnemyDeath();
         _alive = false;
         gameObject.GetComponent<Collider>().enabled = false;
+        _soundManager.PlaySound("Explote", audioSource);
         StartCoroutine(Explote());
     }
 

@@ -108,6 +108,7 @@ public class UpgradeManager : MonoBehaviour
             TransformsUpgradeUI[i].gameObject.SetActive(false);
             Destroy(TransformsIcon[i].GetChild(0).gameObject);
         }
+       
     }
 
     public void UpdateUIOpen()

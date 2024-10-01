@@ -5,43 +5,48 @@ using UnityEngine;
 public class Torpedo : MonoBehaviour
 {
     public float speed = 15f;  // Speed of the torpedo
-    private Transform target;  // Target to move towards
-    private Vector3 direction;
-
+    private Transform _target;  // Target to move towards
+    private Vector3 _direction;
+    private SoundManager _soundManager;
     private int _damage = 5;
+    [SerializeField] ParticleSystem Fire;
+    [SerializeField] AudioSource audioSource;
 
     [SerializeField] ParticleSystem Explosion;
 
     public int Damage { get => _damage; set => _damage = value; }
 
+
+
+
     void Start()
     {
-        // Find the player's main camera as the target
-        target = Camera.main.transform;
-
-        if (target != null)
+        // Find the player's main camera as the _target
+        _target = Camera.main.transform;
+        _soundManager = SoundManager.Instance;  
+        if (_target != null)
         {
-            // Calculate direction towards the camera
-            direction = target.position - transform.position;
-            direction.Normalize();  // Normalize the direction to get only the direction (not magnitude)
+            // Calculate _direction towards the camera
+            _direction = _target.position - transform.position;
+            _direction.Normalize();  // Normalize the _direction to get only the _direction (not magnitude)
 
             // Move the torpedo towards the camera
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += _direction * speed * Time.deltaTime;
 
             // Optional: Rotate the torpedo to face the camera
-            transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.LookRotation(_direction);
         }
     }
 
     void Update()
     {
-        if (target != null)
+        if (_target != null)
         {
             // Move the torpedo towards the camera
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += _direction * speed * Time.deltaTime;
 
             // Optional: Rotate the torpedo to face the camera
-            transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.LookRotation(_direction);
 
         }
     }
@@ -58,6 +63,8 @@ public class Torpedo : MonoBehaviour
 
     private IEnumerator Explote()
     {
+        _soundManager.PlaySound("Torpedo", audioSource);
+        Fire.Stop();
         speed = 0;
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         Explosion.Play(); 
