@@ -20,7 +20,7 @@ public class Boss1Behaivior : MonoBehaviour
     private Camera _camera;
     private float _speed = 0.1f; // Variable movement speed of enemies
     private float _rotationSpeed = 8f;
-    private float _shootAnimationTime = 1.1f;
+    private float _shootAnimationTime = 0.1f;
     private float _distanceFoward = 2f;
     private bool _fowardone = false;
 
@@ -41,7 +41,9 @@ public class Boss1Behaivior : MonoBehaviour
 
 
     [Header("Prefab")]
+    [SerializeField] Transform TorpedoParent;
     [SerializeField] ParticleSystem Explosion;
+    [SerializeField] ParticleSystem ChargingBall;
     [SerializeField] Collider Collider;
     [SerializeField] MeshRenderer MainMesh;
     [SerializeField] AudioSource audioSource;
@@ -233,8 +235,11 @@ public class Boss1Behaivior : MonoBehaviour
 
             if (!_electrocuted)
             {
+                ChargingBall.Play();
+                yield return new WaitForSeconds(ChargingBall.main.duration);
                 _soundManager.PlaySound("AlienShoot", audioSource);
-                GameObject torpedo = Instantiate(TorpedoPrefab, this.transform.position, Quaternion.identity);
+                GameObject torpedo = Instantiate(TorpedoPrefab, TorpedoParent.position, Quaternion.identity);
+                ChargingBall.Stop();
                 _enemySpawner.Projectiles.Add(torpedo);
             }
             yield return new WaitForSeconds(_shootAnimationTime);
@@ -253,17 +258,17 @@ public class Boss1Behaivior : MonoBehaviour
         }
         else
         {
+            // this values should be added as a variable later
             switch (projectile.Type)
             {
                 case ProjectileType.Fireball:
-                    StartCoroutine(Burned(2f));
+                    StartCoroutine(Burned(1.5f));
                     break;
                 case ProjectileType.Electro:
-                    StartCoroutine(ShakeObject(0.8f));
-                    StartCoroutine(Electrocuted(3f));
+                    StartCoroutine(Electrocuted(0.3f));
                     break;
                 case ProjectileType.Freeze:
-                    StartCoroutine(Freezed(3f));
+                    StartCoroutine(Freezed(2.5f));
                     break;
 
                 default:

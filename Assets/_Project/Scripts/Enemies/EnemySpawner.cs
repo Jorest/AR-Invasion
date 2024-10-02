@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> EnemiesPrefabs;
 
+    [SerializeField] List<GameObject> BossesPrefabs;
 
     private int _waveNumber = 1;
     private int _packAmount = 2;
@@ -15,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
     private List<GameObject> _projectiles = new List<GameObject>();
+
     [SerializeField] GameManager GameManager;
     public static EnemySpawner Instance { get; private set; }
 
@@ -52,7 +54,8 @@ public class EnemySpawner : MonoBehaviour
         }
         if (_waveNumber ==4 )
         {
-            Debug.LogWarning("BOSS FIUGHT 1");
+            Debug.LogWarning("BOSS FIGHT 1");
+            SpawnBoss(0); 
             _waveNumber++;
             _packAmount++;
 
@@ -114,8 +117,17 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-  
-    
+
+    private void SpawnBoss(int bossNumber)
+    {
+       
+            GameObject enemy = Instantiate(BossesPrefabs[bossNumber], _portalTransform.position, Quaternion.identity, _portalTransform);
+            //enable to scale ship to portal size
+            //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
+            enemy.transform.localPosition = Vector3.zero;
+            enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
+       
+    }
 
 
 

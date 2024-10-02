@@ -105,7 +105,9 @@ public class Player : MonoBehaviour
             LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
             TextLifeNumber.text = (_health + "/" + _healthTotal);
         }
-        if (_health == 0) {
+        if (_health <= 0) {
+
+            TextLifeNumber.text = ("0" + "/" + _healthTotal);
 
             _gameManager.GameOver();
 
