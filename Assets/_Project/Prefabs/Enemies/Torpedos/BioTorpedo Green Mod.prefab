@@ -54,6 +54,7 @@ MonoBehaviour:
   _speed: 0.52
   _damage: 3
   _isHoming: 0
+  VisualTorpedo: {fileID: 435194400594977733}
   Fire: {fileID: 6734294285463237570}
   audioSource: {fileID: 5744726178831718863}
   Explosion: {fileID: 8564888509455052954}

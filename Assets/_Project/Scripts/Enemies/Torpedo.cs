@@ -13,6 +13,7 @@ public class Torpedo : MonoBehaviour
     [SerializeField] private int _damage = 5;
     [SerializeField] private bool _isHoming = false;
     [Header("Other")]
+    [SerializeField] MeshRenderer VisualTorpedo;
     [SerializeField] ParticleSystem Fire;
     [SerializeField] AudioSource audioSource;
 
@@ -78,7 +79,7 @@ public class Torpedo : MonoBehaviour
         _soundManager.PlaySound("Torpedo", audioSource);
         Fire.Stop();
         _speed = 0;
-        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        VisualTorpedo.enabled = false;
         Explosion.Play(); 
         yield return new WaitForSeconds(Explosion.main.duration);
         Destroy(gameObject);

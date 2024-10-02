@@ -35134,11 +35134,11 @@ MonoBehaviour:
   _torpedoCoolDown: 4
   TorpedoPrefab: {fileID: 1320069977197851723, guid: e489cdcaa193432419df64f94ba290c2,
     type: 3}
-  DamagedGameObject: {fileID: 8073053036842340668}
   Explosion: {fileID: 3614347413534572648}
   Collider: {fileID: 3538490007084604676}
   MainMesh: {fileID: 408287559099276292}
   audioSource: {fileID: 3688452832002700886}
+  Damaged: {fileID: 2834483508747277458}
   Electro: {fileID: 5085528263203727921}
   Fire: {fileID: 3069864404482238997}
   Ice: {fileID: 4210732190773893886}
@@ -35504,7 +35504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4945473754732380791
 Transform:
   m_ObjectHideFlags: 0
@@ -35535,7 +35535,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8073053036842340668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

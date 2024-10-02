@@ -41,7 +41,6 @@ public class Boss1Behaivior : MonoBehaviour
 
 
     [Header("Prefab")]
-    [SerializeField] GameObject DamagedGameObject;
     [SerializeField] ParticleSystem Explosion;
     [SerializeField] Collider Collider;
     [SerializeField] MeshRenderer MainMesh;
@@ -50,6 +49,7 @@ public class Boss1Behaivior : MonoBehaviour
 
 
     [Header("Visual Overlays")]
+    [SerializeField] MeshRenderer Damaged;
     [SerializeField] MeshRenderer Electro;
     [SerializeField] MeshRenderer Fire;
     [SerializeField] MeshRenderer Ice;
@@ -397,13 +397,13 @@ public class Boss1Behaivior : MonoBehaviour
 
     private IEnumerator DamageBlink()
     {
-        DamagedGameObject.SetActive(true);
+        Damaged.enabled = (true);
         yield return new WaitForSeconds(0.1f);
-        DamagedGameObject.SetActive(false);
+        Damaged.enabled = (false);
         yield return new WaitForSeconds(0.1f);
-        DamagedGameObject.SetActive(true);
+        Damaged.enabled = (true);
         yield return new WaitForSeconds(0.1f);
-        DamagedGameObject.SetActive(false);
+        Damaged.enabled = (false);
     }
 
 
