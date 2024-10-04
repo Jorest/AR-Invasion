@@ -25,6 +25,7 @@ public class EnemyBehavior : MonoBehaviour
     private float _shootAnimationTime = 1.1f;
     private float _distanceFoward = 2f;
     private bool _fowardone = false;
+    private float _fowardMaxRange = 0.5f;
 
     //debuff timers 
     private float _fireTimer = 0f;
@@ -161,7 +162,7 @@ public class EnemyBehavior : MonoBehaviour
         // Define a random position within the area in front of the portal
         float radiusx = Random.Range(-_areaRadius, _areaRadius);
         float radiusz = Random.Range(-_areaRadius, _areaRadius);
-        float radiusy = Random.Range(0.01f, 0.3f);
+        float radiusy = Random.Range(0.01f, _fowardMaxRange);
 
         //  randomDirection    += transform.parent.position;
         // Make sure the new position is within the specified area

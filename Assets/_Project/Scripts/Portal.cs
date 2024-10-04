@@ -18,13 +18,19 @@ public class Portal : MonoBehaviour
     {
         _gameStarter = GameManager.Instance;
         _reported = true;
+
+          
+
+
         _gameStarter.UpdatePortal(this);
+
     }
 
     public void LockIn()
     {
-       // _xrInteractable.StopAllCoroutines();
-        _xrInteractable.enabled = false;
+       // _gameStarter.UpdatePortal(this);
+        //_xrInteractable.enabled = false;
+       // transform.localRotation = Quaternion.Euler(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
     }
 
     public void VisualsOff()

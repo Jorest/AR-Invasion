@@ -98,20 +98,41 @@ public class GameManager : MonoBehaviour
     {
         Destroy(DeleteButton.gameObject);
         StartButton.gameObject.SetActive(false);
-
         if (_lastPortal != null)
         {
+
+            DissablePlaneRegonition();
+
             Vector3 portalocalRot = _lastPortal.transform.localEulerAngles;
-            portalocalRot.x = 0;
-            _lastPortal.transform.localRotation = Quaternion.Euler(portalocalRot);
+
+            Vector3 cameraUp = Camera.main.transform.up;
+            Vector3 portalUp = _lastPortal.transform.right;
+
+            float angle = Vector3.Angle(cameraUp, portalUp);
+            float dot = Vector3.Dot(cameraUp, portalUp);
+
+            Debug.Log("dot" + dot + " portalocalRotX:" + portalocalRot.x);
+
+            if (dot > 0)  // Dot product > 0 means same direction
+            {
+                portalocalRot.x=(180f);  // Aligned, set X rotation to 0
+            }
+            else  // Dot product < 0 means opposite direction
+            {
+                portalocalRot.x = (0);  // Opposite, set X rotation to 180
+            }
+
+
+            Debug.Log("dot" + dot + " portalocalRotX:" + portalocalRot.x);
+
+            _lastPortal.transform.localEulerAngles = portalocalRot;
             _lastPortal.LockIn();
             HUD.gameObject.SetActive(true);
 
-            DissablePlaneRegonition();
             StartCoroutine(StartWave());
 
+            Destroy(StartButton.gameObject);
         }
-
 
 
 
@@ -135,7 +156,7 @@ public class GameManager : MonoBehaviour
     public void SetPortalEnable(bool enable)
     {
         _enablePortalSpawn = enable;
-        StartButton.gameObject.SetActive(!_enablePortalSpawn);
+      //  StartButton.gameObject.SetActive(!_enablePortalSpawn);
     }
 
     public void UpdatePortal(Portal portal)

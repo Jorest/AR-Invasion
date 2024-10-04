@@ -277,10 +277,12 @@ public class ARTemplateMenuManager : MonoBehaviour
             if (m_ShowObjectMenu)
             {
                 m_DeleteButton.gameObject.SetActive(false);
+          //      StartButton.gameObject.SetActive(false);
             }
             else
             {                
-                m_DeleteButton.gameObject?.SetActive(m_InteractionGroup?.focusInteractable != null);               
+                m_DeleteButton.gameObject?.SetActive(m_InteractionGroup?.focusInteractable != null);
+              //  StartButton.gameObject?.SetActive(m_InteractionGroup?.focusInteractable != null); 
             }
 
             m_IsPointerOverUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(-1);
@@ -294,7 +296,9 @@ public class ARTemplateMenuManager : MonoBehaviour
             }
             if (m_DeleteButton)
                  m_DeleteButton.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
- 
+            if (StartButton)
+                StartButton.gameObject.SetActive(m_InteractionGroup?.focusInteractable != null);
+
         }
 
         if (!m_IsPointerOverUI && m_ShowOptionsModal)

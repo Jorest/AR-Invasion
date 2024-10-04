@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements.
 using TMPro;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 public class Player : MonoBehaviour
@@ -16,7 +15,7 @@ public class Player : MonoBehaviour
     private float _cooldown = 1f;
     private bool _canShoot = true;
     private int _projectileType = 0;
-    private int _projectileDamage = 1;
+    private int _projectileDamage = 5;
 
     private SoundManager _soundManager;
     private GameManager _gameManager;

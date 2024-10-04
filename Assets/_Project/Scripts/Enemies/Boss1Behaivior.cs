@@ -236,7 +236,7 @@ public class Boss1Behaivior : MonoBehaviour
             if (!_electrocuted)
             {
                 ChargingBall.Play();
-                yield return new WaitForSeconds(ChargingBall.main.duration);
+                yield return new WaitForSeconds(ChargingBall.main.duration/4);
                 _soundManager.PlaySound("AlienShoot", audioSource);
                 GameObject torpedo = Instantiate(TorpedoPrefab, TorpedoParent.position, Quaternion.identity);
                 ChargingBall.Stop();

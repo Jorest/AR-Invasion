@@ -35,7 +35,10 @@ public class UpgradeManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(TowardsX);
 
         Vector3 originalRot = UPgradeUI.transform.eulerAngles;
-        UPgradeUI.transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y - 90, 0);
+
+        UPgradeUI.transform.parent = portalTransform;
+        //UPgradeUI.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
+        UPgradeUI.transform.localEulerAngles = new Vector3( 90f,180, -90f);
         //UPgradeUI.transform.eulerAngles= new Vector3 (originalRot.x, originalRot.y+ portalTransform.eulerAngles.y, originalRot.z);
         StartCoroutine(UpgradeSet());
     }
