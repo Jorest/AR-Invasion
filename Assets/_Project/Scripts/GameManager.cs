@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Canvas HUD;
     [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private GameObject WinGameScreen;
     [SerializeField] private TextMeshProUGUI WaveText;
 
     [SerializeField] private float startWaveDelay = 2f;
@@ -78,6 +79,13 @@ public class GameManager : MonoBehaviour
     {
         HUD.enabled = false;
         _lastPortal.VisualsOff();
+        GameObject[] Torpedos = GameObject.FindGameObjectsWithTag("Torpedo");
+
+        foreach (GameObject enemy in Torpedos)
+        {
+            Destroy(enemy);
+        }
+
         UpgradesManager.ShowUpgrades(_lastPortal.transform);
     }
 
@@ -152,6 +160,31 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RestartGame()
+    {
+
+        EnablePlaneRegonition();
+        StartCoroutine(ResetARSession());
+
+
+
+    }
+    public void WInGame()
+    {
+        HUD.enabled = false;
+        _lastPortal.VisualsOff();
+
+        GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in Enemies)
+        {
+            Destroy(enemy);
+        }
+
+        WinGameScreen.SetActive(true);
+    }
+
+
     #region Portal related
     public void SetPortalEnable(bool enable)
     {
@@ -167,6 +200,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region AR_related
 
     void DissablePlaneRegonition()
     {
@@ -196,16 +230,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    public void RestartGame()
-    {
-
-        EnablePlaneRegonition();
-        StartCoroutine(ResetARSession());
-
-       
-
-    }
 
     private IEnumerator<WaitForSeconds> ResetARSession()
     {
@@ -260,7 +284,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    
+    #endregion
 
 
 }

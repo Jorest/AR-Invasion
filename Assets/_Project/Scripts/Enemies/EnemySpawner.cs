@@ -59,6 +59,15 @@ public class EnemySpawner : MonoBehaviour
             _waveNumber++;
             _packAmount++;
 
+        }else if (_waveNumber == 8)
+        {
+            Debug.LogWarning("BOSS FIGHT 2");
+            SpawnBoss(1);
+       
+        }else if (_waveNumber == 12)
+        {
+            SpawnBoss(0);
+            SpawnBoss(1);
         }
         else
         {
@@ -98,7 +107,6 @@ public class EnemySpawner : MonoBehaviour
         if (_enemyCount <= 0)
         {
             KillProjectiles();
-            Debug.LogWarning("LEVEL END :D");
             GameManager.EndLevel();
         }
     }
@@ -128,5 +136,13 @@ public class EnemySpawner : MonoBehaviour
             enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
        
     }
+
+    public void FinishGame()
+    {
+        KillProjectiles();
+        GameManager.WInGame();
+
+    }
+
 
 }

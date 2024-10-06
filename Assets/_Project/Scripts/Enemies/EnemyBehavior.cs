@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-
+    
     private bool _electrocuted = false;
+    private bool _reportDeathActivated = true;
     private bool _burned = false;
     private bool _frozen = false;
     private bool _alive = true;
@@ -59,6 +60,8 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] MeshRenderer Shield;
 
     private float yMovementRange = 0.1f;
+
+    public bool ReportDeathActivated { get => _reportDeathActivated; set => _reportDeathActivated = value; }
 
     #region UnityDefault
 
@@ -286,7 +289,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Die()
     {
-        if (_alive == true)
+        if (_alive == true && _reportDeathActivated)
             _enemySpawner.ReportEnemyDeath();
         _alive = false;
         gameObject.GetComponent<Collider>().enabled = false;

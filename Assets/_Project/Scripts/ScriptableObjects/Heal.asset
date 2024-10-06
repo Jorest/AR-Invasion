@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   UpgradeName: Heal
-  Description: 'Heal: Restore 10 health instantly, helping you recover from damage
-    and stay in the fight longer.'
+  Description: 'Heart: Restore 10 health points'
   infinite: 1
   Type: 0
   FrameColor: {r: 0.9811321, g: 0.0129582975, b: 0.71085805, a: 0.9019608}

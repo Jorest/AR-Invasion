@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Electric
   m_EditorClassIdentifier: 
   UpgradeName: Electric
-  Description: electric eeeeye
+  Description: 'Electric ball: Transforms your  projectile into electric-ball, which
+    temporarely disables the enemy atack system.'
   infinite: 0
   Type: 2
-  FrameColor: {r: 0.2679245, g: 1, b: 0.65372443, a: 0.9019608}
+  FrameColor: {r: 0.26666665, g: 0.8487486, b: 1, a: 0.9019608}
   VisualElement: {fileID: 4143191219167363193, guid: e068521c3013bbf4f97bde3b0cb34e6c,
     type: 3}

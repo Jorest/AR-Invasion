@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss1Behaivior : MonoBehaviour
+public class Boss2Behaivior : MonoBehaviour
 {
+
 
     private bool _electrocuted = false;
     private bool _burned = false;
@@ -37,7 +38,7 @@ public class Boss1Behaivior : MonoBehaviour
     [SerializeField] private float _torpedoCoolDown = 5f;
 
     [Header("Projectiles")]
-    [SerializeField] GameObject TorpedoPrefab;
+    [SerializeField] List<GameObject> Enemies;
 
 
     [Header("Prefab")]
@@ -236,11 +237,13 @@ public class Boss1Behaivior : MonoBehaviour
             if (!_electrocuted)
             {
                 ChargingBall.Play();
-                yield return new WaitForSeconds(ChargingBall.main.duration/4);
+                yield return new WaitForSeconds(ChargingBall.main.duration / 4);
                 _soundManager.PlaySound("AlienShoot", audioSource);
-                GameObject torpedo = Instantiate(TorpedoPrefab, TorpedoParent.position, Quaternion.identity);
+                int en = Random.Range(0, Enemies.Count);
+                GameObject alien = Instantiate(Enemies[en], TorpedoParent.position, Quaternion.identity);
+                alien.GetComponent<EnemyBehavior>().ReportDeathActivated = false;
                 ChargingBall.Stop();
-                _enemySpawner.Projectiles.Add(torpedo);
+                _enemySpawner.Projectiles.Add(alien);
             }
             yield return new WaitForSeconds(_shootAnimationTime);
             // Restore the original rotation speed
@@ -290,7 +293,12 @@ public class Boss1Behaivior : MonoBehaviour
     private void Die()
     {
         if (_alive == true)
-            _enemySpawner.ReportEnemyDeath();
+        {
+            _enemySpawner.FinishGame();
+            //_enemySpawner.ReportEnemyDeath();
+        }
+
+            //_enemySpawner.ReportEnemyDeath();
         _alive = false;
         gameObject.GetComponent<Collider>().enabled = false;
         _soundManager.PlaySound("Explote", audioSource);
@@ -455,5 +463,6 @@ public class Boss1Behaivior : MonoBehaviour
     }
 
     #endregion
+
 
 }

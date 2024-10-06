@@ -55,7 +55,11 @@ public class UpgradeManager : MonoBehaviour
         // Present them to the player (this would depend on your UI system)
         foreach (var upgrade in selectedUpgrades)
         {
-            Debug.Log("Option: " + upgrade.UpgradeName);
+            if (upgrade.infinite == false)
+            {
+                Debug.LogWarning("tryng to remove upgrade");
+                availableUpgrades.Remove(upgrade);
+            }
         }
     }
 
@@ -77,12 +81,7 @@ public class UpgradeManager : MonoBehaviour
                 Instantiate(up.VisualElement, TransformsIcon[i].position, TransformsIcon[i].rotation, TransformsIcon[i]);
                 AssingUpgradeMethod(up.UpgradeName, ConfimButtons[i]);
                 shuffledUpgrades.RemoveAt(randomIndex);  // Avoid selecting the same upgrade again
-                
-                // one time offer ? 
-                if (availableUpgrades[randomIndex].infinite==false)
-                {
-                    availableUpgrades.RemoveAt(randomIndex);
-                }
+                         
             }
         }
         _upgraded = true;
@@ -101,7 +100,6 @@ public class UpgradeManager : MonoBehaviour
         button.onClick.AddListener(() => gameManager.Upgrade(name));
 
     }
-
 
     //referenced by Editor
     public void UpdateUIClose()
@@ -153,7 +151,5 @@ public class UpgradeManager : MonoBehaviour
             }
         }
     }
-
-
 
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Freeze
   m_EditorClassIdentifier: 
   UpgradeName: Ice
-  Description: 'ONE TIME OFFER: transforms your  projectile into an ice-infused shot.
+  Description: 'Freeze shoot: transforms your  projectile into an ice-infused shot.
     When it hits, the ice projectile slows the enemy''s movement significantly.'
   infinite: 0
   Type: 3

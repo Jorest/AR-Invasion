@@ -67,6 +67,11 @@ public class SoundManager : MonoBehaviour
         PlaySound("BTN");
     }
 
+    public void CancelButton()
+    {
+        PlaySound("BTN_Cancel");
+    }
+
     // Helper method to find a sound clip by name
     private SoundClip GetSoundClipByName(string soundName)
     {

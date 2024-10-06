@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private float _cooldown = 1f;
     private bool _canShoot = true;
     private int _projectileType = 0;
-    private int _projectileDamage = 5;
+    private int _projectileDamage = 3;
 
     private SoundManager _soundManager;
     private GameManager _gameManager;
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
 
     public void IncreaseDamage()
     {
-        _projectileDamage = (int)Mathf.Ceil(_projectileDamage * 1.5f); 
+        _projectileDamage = (int)Mathf.Ceil(_projectileDamage * 1.25f); 
     }
 
     public void HandleTrigger(Collider other)
@@ -141,47 +141,38 @@ public class Player : MonoBehaviour
     #region UpgradeButtonMethods
     public void Heal()
     {
-
-        Debug.LogWarning("Healed Upgrade");
-        HealAmount(15);
+        HealAmount(10);
         _gameManager.StartNextLevel();
     }
     public void Fire()
     {
 
         _projectileType = 3;
-        Debug.LogWarning("Fire Upgrade");
         _gameManager.StartNextLevel();
 
     }
     public void Ice()
     {
-
         _projectileType = 2;
-        Debug.LogWarning("Ice Upgrade");
         _gameManager.StartNextLevel();
     }
 
     public void Electric()
     {
         _projectileType = 1;
-        Debug.LogWarning("Electric Upgrade");
         _gameManager.StartNextLevel();
     }
 
     public void Damage()
     {
-
         IncreaseDamage();
-        Debug.LogWarning("Damage Upgrade");
         _gameManager.StartNextLevel();
     }
 
     public void CoolDown()
     {
 
-        _cooldown = _cooldown / 2;
-        Debug.LogWarning("CoolDown Upgrade");
+        _cooldown = _cooldown * 0.75f;
         _gameManager.StartNextLevel(); 
 
 
@@ -189,7 +180,6 @@ public class Player : MonoBehaviour
     }
     public void Health() {
 
-        Debug.LogWarning("Health Upgrade");
         _healthTotal += 10;
         //upgade UI
         LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
