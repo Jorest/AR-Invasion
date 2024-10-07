@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     private int _health = 25;
     private int _healthTotal = 25;
-    private float _cooldown = 1f;
+    private float _cooldown = 1.5f;
     private bool _canShoot = true;
     private int _projectileType = 0;
     private int _projectileDamage = 3;

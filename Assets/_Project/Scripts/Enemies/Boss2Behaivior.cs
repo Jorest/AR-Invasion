@@ -29,7 +29,7 @@ public class Boss2Behaivior : MonoBehaviour
     private float _fireTimer = 0f;
     private float _freezeTimer = 0f;
     private float _electroTimer = 0f;
-    private float _pingInterval = 0.3f;
+    private float _pingInterval = 0.5f;
     private float _stopDistance = 1f;
 
     [Header("Adjustable Values")]

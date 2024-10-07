@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedValue: 0.4
-  _healtPoints: 20
+  _healtPoints: 40
   _torpedoCoolDown: 5
   TorpedoPrefab: {fileID: 1320069977197851723, guid: 5ac2b89c4888489458a50314b8025e45,
     type: 3}

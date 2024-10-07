@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedValue: 0.2
-  _healtPoints: 30
+  _healtPoints: 60
   _torpedoCoolDown: 3
   Enemies:
   - {fileID: 2277148767435391463, guid: 4c7715a856273b6448f93f258749f495, type: 3}
