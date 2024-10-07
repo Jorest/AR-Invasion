@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeName: Electric
   Description: 'Electric ball: Transforms your  projectile into electric-ball, which
-    temporarely disables the enemy atack system.'
+    temporarily disables the enemy attack system'
   infinite: 0
   Type: 2
   FrameColor: {r: 0.26666665, g: 0.8487486, b: 1, a: 0.9019608}

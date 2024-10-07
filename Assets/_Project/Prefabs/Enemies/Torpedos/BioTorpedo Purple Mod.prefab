@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a81337733c78a241aa6ee5ba48c7f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.52
+  _speed: 0.5
   _damage: 3
   _isHoming: 0
   VisualTorpedo: {fileID: 435194400594977733}

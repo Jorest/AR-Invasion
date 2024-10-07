@@ -16,6 +16,6 @@ MonoBehaviour:
   Description: 'Health Crystal: Increases the maximum health by 15'
   infinite: 1
   Type: 0
-  FrameColor: {r: 1, g: 1, b: 1, a: 1}
+  FrameColor: {r: 0.22075468, g: 1, b: 0.28373557, a: 1}
   VisualElement: {fileID: 1168966368610031635, guid: 683b7cf63c377454a93b8cbbd0e4378b,
     type: 3}

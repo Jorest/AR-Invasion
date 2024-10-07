@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   UpgradeName: Damage
-  Description: 'Extra Damage: Increases damage of your projectile by 25%'
+  Description: 'Damage Crystal: Increases damage of your projectile by 25%'
   infinite: 1
   Type: 0
   FrameColor: {r: 1, g: 1, b: 1, a: 1}

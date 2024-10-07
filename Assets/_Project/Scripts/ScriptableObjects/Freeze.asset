@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeName: Ice
   Description: 'Freeze shoot: transforms your  projectile into an ice-infused shot.
-    When it hits, the ice projectile slows the enemy''s movement significantly.'
+    When it hits, the ice projectile slows the enemy''s movement significantly'
   infinite: 0
   Type: 3
   FrameColor: {r: 0.56037736, g: 0.6462992, b: 1, a: 0.9019608}

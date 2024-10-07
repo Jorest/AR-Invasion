@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   UpgradeName: Fire
-  Description: 'Fire ball: Transforms your projectile into a fire-ball/ Upon impact,
-    the projectile ignites the target.'
+  Description: 'Fireball: Transforms your projectile into a fire-ball/ Upon impact,
+    the projectile ignites the target'
   infinite: 0
   Type: 1
   FrameColor: {r: 1, g: 0.32051128, b: 0, a: 0.9019608}

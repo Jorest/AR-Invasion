@@ -4691,7 +4691,9 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Welcome to AR-Invasion
 
-        Please read the following intrusctions'
+        Please read the following instructions
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 5779608150239002450, guid: 063cc896506b947c7b2c2ae3beb5868f,
         type: 3}
