@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements.
 using TMPro;
-
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
 
 public class Player : MonoBehaviour
 {
@@ -24,10 +24,13 @@ public class Player : MonoBehaviour
     [SerializeField] Button ShootButton;
     [SerializeField] Image LifeBar;
     [SerializeField] Image CoolDownCircle;
+    [SerializeField] Image DamageOverlay;
     [SerializeField] TextMeshProUGUI TextLifeNumber;
 
     [Header("Other")]
     [SerializeField] Transform ProjectilePos;
+
+    private Coroutine currentFlash;
 
     public static Player Instance { get; private set; }
     public int ProjectileType { get => _projectileType; set => _projectileType = value; }
@@ -96,11 +99,37 @@ public class Player : MonoBehaviour
     }
 
 
+    private IEnumerator DamageOverlayFlash()
+    {
+        float fadeDuration = 0.5f;
+        float elapsed = 0f;
+        Color startColor = new Color(1f, 0f, 0f, 0.4f); // semi-transparent red
+        DamageOverlay.color = startColor;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(0.4f, 0f, elapsed / fadeDuration);
+            DamageOverlay.color = new Color(1f, 0f, 0f, alpha);
+            yield return null;
+        }
+
+        DamageOverlay.color = new Color(1f, 0f, 0f, 0f); // fully transparent at end
+        currentFlash = null;
+    }
+
     public void TakeDamage(int damage)
     {
         if (_health > 0)
         {
             _health -= damage;
+
+            // Damaga Overlay Flash
+            if (currentFlash != null)
+                StopCoroutine(currentFlash);
+            currentFlash = StartCoroutine(DamageOverlayFlash());
+            // phone vibration
+            Handheld.Vibrate();
+
             LifeBar.fillAmount = ((float)_health / (float)_healthTotal);
             TextLifeNumber.text = (_health + "/" + _healthTotal);
         }

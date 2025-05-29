@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
             _portalTransform = portalTransform;
 
         StartCoroutine(IEStarWave(_waveNumber));
-        _waveNumber++;
+       // _waveNumber++;
     }
     public void StartWave()
     {
@@ -52,19 +52,19 @@ public class EnemySpawner : MonoBehaviour
         { 
             Debug.LogError("no posiiton for spawning");
         }
-        if (_waveNumber ==4 )
+        if (_waveNumber ==3 )
         {
             Debug.LogWarning("BOSS FIGHT 1");
             SpawnBoss(0); 
             _waveNumber++;
             _packAmount++;
 
-        }else if (_waveNumber == 8)
+        }else if (_waveNumber == 7)
         {
             Debug.LogWarning("BOSS FIGHT 2");
             SpawnBoss(1);
        
-        }else if (_waveNumber == 12)
+        }else if (_waveNumber == 11)
         {
             SpawnBoss(0);
             SpawnBoss(1);
@@ -79,7 +79,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator IEStarWave(int waveNumber)
     {
-        Debug.LogWarning("IE StarWave WAVE NUMBER " + _waveNumber);
+        Debug.LogWarning("IE StartWave WAVE NUMBER " + _waveNumber);
         _enemyCount = waveNumber * _packAmount;
         for (int i = 0; i < waveNumber; i++)
         {
