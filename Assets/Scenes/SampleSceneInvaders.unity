@@ -3987,7 +3987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &504656385
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4005,8 +4005,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 57.6, y: 33.1}
+  m_AnchoredPosition: {x: 0, y: -18.31}
+  m_SizeDelta: {x: 86.9, y: 33.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &504656386
 MonoBehaviour:
@@ -4028,18 +4028,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CLEAR
+  m_text: Clear Portal
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 338b87ec800b74d4786573b1fdd14c13, type: 2}
-  m_sharedMaterial: {fileID: 4687939059374929122, guid: 338b87ec800b74d4786573b1fdd14c13,
+  m_fontAsset: {fileID: 11400000, guid: f953120beed03f8429a6e3e7c8066921, type: 2}
+  m_sharedMaterial: {fileID: 7256390961594038278, guid: f953120beed03f8429a6e3e7c8066921,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294888448
+  m_fontColor: {r: 0, g: 0.8000001, b: 0.9960785, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7176,7 +7176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &854185126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7194,8 +7194,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 57.6, y: 33.1}
+  m_AnchoredPosition: {x: 0, y: -55}
+  m_SizeDelta: {x: 86.04, y: 33.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854185127
 MonoBehaviour:
@@ -7217,18 +7217,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOCK
+  m_text: Lock Portal
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 338b87ec800b74d4786573b1fdd14c13, type: 2}
-  m_sharedMaterial: {fileID: 4687939059374929122, guid: 338b87ec800b74d4786573b1fdd14c13,
+  m_fontAsset: {fileID: 11400000, guid: f953120beed03f8429a6e3e7c8066921, type: 2}
+  m_sharedMaterial: {fileID: 7256390961594038278, guid: f953120beed03f8429a6e3e7c8066921,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292918528
+  m_fontColor: {r: 0, g: 0.7411765, b: 0.87843144, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
