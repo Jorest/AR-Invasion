@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyCount = 0;
     private Transform _portalTransform = null;
     private List<GameObject> _projectiles = new List<GameObject>();
+    private List<GameObject> _enemies = new List<GameObject>();
 
     [SerializeField] GameManager GameManager;
     public static EnemySpawner Instance { get; private set; }
@@ -117,6 +118,7 @@ public class EnemySpawner : MonoBehaviour
         {
 
             GameObject enemy = Instantiate(EnemiesPrefabs[alienType], _portalTransform.position, Quaternion.identity, _portalTransform);
+            _enemies.Add(enemy);
             //enable to scale ship to portal size
             //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
             enemy.transform.localPosition = Vector3.zero;
@@ -129,12 +131,25 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnBoss(int bossNumber)
     {
        
-            GameObject enemy = Instantiate(BossesPrefabs[bossNumber], _portalTransform.position, Quaternion.identity, _portalTransform);
-            //enable to scale ship to portal size
-            //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
-            enemy.transform.localPosition = Vector3.zero;
-            enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
+        GameObject enemy = Instantiate(BossesPrefabs[bossNumber], _portalTransform.position, Quaternion.identity, _portalTransform);
+        _enemies.Add(enemy);
+        //enable to scale ship to portal size
+        //enemy.transform.localScale = enemy.transform.localScale * trans.localScale.x;
+        enemy.transform.localPosition = Vector3.zero;
+        enemy.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 90));
        
+    }
+
+    public void KillAllEnemies()
+    {
+        foreach (GameObject enemy in _enemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        _enemies.Clear();
     }
 
     public void FinishGame()

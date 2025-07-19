@@ -103,12 +103,12 @@ public class Player : MonoBehaviour
     {
         float fadeDuration = 0.5f;
         float elapsed = 0f;
-        Color startColor = new Color(1f, 0f, 0f, 0.4f); // semi-transparent red
+        Color startColor = new Color(1f, 0f, 0f, 0.6f); // semi-transparent red (last is alpha)
         DamageOverlay.color = startColor;
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0.4f, 0f, elapsed / fadeDuration);
+            float alpha = Mathf.Lerp(0.6f, 0f, elapsed / fadeDuration);
             DamageOverlay.color = new Color(1f, 0f, 0f, alpha);
             yield return null;
         }

@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
         EnemyManager.StartFirstWave(_lastPortal.transform);
 
     }
-
+    //referenced in editor
     public void RestartGame()
     {
 
@@ -169,6 +169,24 @@ public class GameManager : MonoBehaviour
 
 
     }
+    //referenced in editor from GameOverScreen
+    public void ResetFromWave1()
+    {
+        //shot all ships
+        EnemyManager.KillProjectiles();
+        EnemyManager.KillAllEnemies();
+        EnemyManager.WaveNumber = 1;
+
+        //reset player state
+
+
+        StartNextLevel();
+
+
+    }
+
+
+
     public void WInGame()
     {
         HUD.enabled = false;
